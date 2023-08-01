@@ -15,6 +15,26 @@
 char history[MAX_HISTORY_SIZE][MAX_INPUT_SIZE];
 int historyCount = 0;
 
+void powerline() {
+    // Get the current working directory
+    char cwd[1024];
+    if (getcwd(cwd, sizeof(cwd)) != NULL) {
+        // Find the last directory in the path
+        char* last_dir = strrchr(cwd, '/');
+        if (last_dir != NULL) {
+            last_dir++; // Move past the slash to get the last directory name
+        } else {
+            last_dir = cwd; // If there's no slash, use the entire path
+        }
+
+        // Print the Powerline-style prompt
+        printf("\033[1;34m%s \033[1;32m➜\033[0m ", last_dir);
+    } else {
+        // Print a simple prompt if getting the current directory fails
+        printf("\n\033[1;32m[➜]\033[0m ");
+    }
+}
+
 void handleSignal(int signal) {
     if (signal == SIGINT)
         printf("Shell > ");
@@ -87,7 +107,7 @@ int shell(void) {
     sigaction(SIGINT, &sa, NULL);
 
     while (running) {
-        printf("Shell > ");
+        powerline();
         if (fgets(input, sizeof(input), stdin) == NULL) {
             break;
         }
