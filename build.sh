@@ -52,12 +52,12 @@ else
 
     # Display the progress bar until the command finishes
     while ps -p $command_pid >/dev/null; do
-        print_progress_bar $(ps -o etimes= -p $command_pid) 60 "Compiling Python:" "Complete" 1 50 "█"
+        print_progress_bar $(ps -o etimes= -p $command_pid) 60 "Compiling build:" "Pegasus" 0 30 "#"
         sleep 1
     done
 
     # Print the final progress bar at 100%
-    print_progress_bar 60 60 "Compiling Python:" "Complete" 1 50 "█"
+    print_progress_bar 60 60 "Compiling Pegasus:" "Complete" 0 30 "#"
     echo ""  # Move to the next line after the progress bar
 
     echo "Compilation completed."
