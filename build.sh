@@ -96,7 +96,7 @@ if [ "$1" == "clean" ]; then
 else
     install_go
 
-    gcc src/main.c src/shell/shell.c src/help/help.c -o shell
+    gcc src/main.c src/shell/shell.c src/help/help.c -o pegasus
     compile_go "src/tools/port-scanner/portscanner.go" "scanner"
     compile_go "src/tools/ping/icmp.go" "ping"
     compile_go "src/tools/dns/dns.go" "dns"
@@ -120,5 +120,5 @@ else
     echo ""  # Move to the next line after the progress bar
 
     echo "Compilation completed."
-    sudo "./shell"
+    sudo "./pegasus"
 fi
