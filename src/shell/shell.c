@@ -137,6 +137,8 @@ int shell(void) {
         // Handle built-in commands
         if (strcmp(tokens[0], "exit") == 0) {
             running = false;
+        } else if (strcmp(tokens[0], "help") == 0) {
+            Help();
         } else if (strcmp(tokens[0], "ping") == 0) {
             if (tokenCount < 2) {
                 pingHelp();
