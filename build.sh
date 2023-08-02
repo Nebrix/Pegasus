@@ -5,7 +5,7 @@ requirements_file="requirements.txt"
 
 clean() {
     echo "removing..."
-    rm -rf shell scanner ping dns subnet dist/ build/ subnet.spec whois sniffer
+    rm -rf pegasus scanner ping dns subnet dist/ build/ subnet.spec whois sniffer
 }
 
 install_go() {
