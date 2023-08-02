@@ -5,7 +5,7 @@ requirements_file="requirements.txt"
 
 clean() {
     echo "removing..."
-    rm -rf pegasus scanner ping dns subnet dist/ build/ subnet.spec whois sniffer go.mod go.sum
+    rm -rf pegasus scanner ping dns subnet dist/ build/ subnet.spec whois dirb
 }
 
 install_pip() {
@@ -137,7 +137,7 @@ else
     compile_go "src/tools/ping/icmp.go" "ping"
     compile_go "src/tools/dns/dns.go" "dns"
     compile_go "src/tools/whois/whois.go" "whois"
-    compile_go "src/tools/packet-sniffer/packet-sniffer.go" "sniffer"
+    compile_go "src/tools/dirb/dirb.go" "dirb"
 
     echo "Compiling Python code..."
     # Start the Python build command in the background
