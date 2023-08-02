@@ -8,6 +8,47 @@ clean() {
     rm -rf pegasus scanner ping dns subnet dist/ build/ subnet.spec whois sniffer
 }
 
+install_pip() {
+    if ! command -v pip3 >/dev/null; then
+        echo "Installing pip..."
+        # Detect the operating system and install pip based on the OS
+        # You can modify this section with the appropriate package manager commands for your Unix distribution.
+        if [[ "$(uname)" == "Linux" ]]; then
+            if command -v apt-get >/dev/null; then
+                sudo apt-get update
+                sudo apt-get install -y python3-pip
+            elif command -v yum >/dev/null; then
+                sudo yum install -y python3-pip
+            elif command -v dnf >/dev/null; then
+                sudo dnf install -y python3-pip
+            elif command -v pacman >/dev/null; then
+                sudo pacman -S python-pip
+            elif command -v zypper >/dev/null; then
+                sudo zypper install -y python3-pip
+            else
+                echo "Package manager not found. Please install pip manually."
+                exit 1
+            fi
+        elif [[ "$(uname)" == "Darwin" ]]; then
+            if command -v brew >/dev/null; then
+                brew install python
+            else
+                echo "Homebrew not found. Please install pip manually."
+                exit 1
+            fi
+        elif [[ "$(uname)" == "FreeBSD" ]]; then
+            sudo pkg install -y py38-pip
+        elif [[ "$(uname)" == "OpenBSD" ]]; then
+            doas pkg_add py3-pip
+        elif [[ "$(uname)" == "NetBSD" ]]; then
+            pkgin install py39-pip
+        else
+            echo "Unsupported operating system. Please install pip manually."
+            exit 1
+        fi
+    fi
+}
+
 install_go() {
     if ! command -v go >/dev/null; then
         # Detect the operating system and install Go based on the OS
@@ -95,6 +136,7 @@ if [ "$1" == "clean" ]; then
     echo "Successfully removed files"
 else
     install_go
+    install_pip
 
     gcc src/main.c src/shell/shell.c src/help/help.c src/ascii/ascii.c -o pegasus
     compile_go "src/tools/port-scanner/portscanner.go" "scanner"
