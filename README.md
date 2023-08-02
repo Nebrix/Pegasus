@@ -10,15 +10,19 @@ To install Pegasus, follow these steps:
 
 1. Clone the repository to your local machine:
 
+`git clone <repo name>`
 
 2. Change into the Pegasus directory:
 
+`cd Pegasus`
 
 3. Make the build script executable:
 
+`chmod +x build.sh`
 
 4. Run the build script:
 
+`./build.sh`
 
 ## Usage
 
