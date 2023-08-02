@@ -3,10 +3,47 @@
 command="python3 -m PyInstaller --onefile src/tools/subnet/subnet.py"
 requirements_file="requirements.txt"
 
-
 clean() {
     echo "removing..."
     rm -rf shell scanner ping dns subnet dist/ build/ subnet.spec whois sniffer
+}
+
+install_go() {
+    # Detect the operating system and install Go based on the OS
+    # You can modify this section with the appropriate package manager commands for your Unix distribution.
+    if [[ "$(uname)" == "Linux" ]]; then
+        if command -v apt-get >/dev/null; then
+            sudo apt-get update
+            sudo apt-get install -y golang
+        elif command -v yum >/dev/null; then
+            sudo yum install -y golang
+        elif command -v dnf >/dev/null; then
+            sudo dnf install -y golang
+        elif command -v pacman >/dev/null; then
+            sudo pacman -S go
+        elif command -v zypper >/dev/null; then
+            sudo zypper install -y go
+        else
+            echo "Package manager not found. Please install Go manually."
+            exit 1
+        fi
+    elif [[ "$(uname)" == "Darwin" ]]; then
+        if command -v brew >/dev/null; then
+            brew install go
+        else
+            echo "Homebrew not found. Please install Go manually."
+            exit 1
+        fi
+    elif [[ "$(uname)" == "FreeBSD" ]]; then
+        sudo pkg install -y go
+    elif [[ "$(uname)" == "OpenBSD" ]]; then
+        doas pkg_add go
+    elif [[ "$(uname)" == "NetBSD" ]]; then
+        pkgin install go
+    else
+        echo "Unsupported operating system. Please install Go manually."
+        exit 1
+    fi
 }
 
 check_and_install_dependencies() {
@@ -37,7 +74,9 @@ print_progress_bar() {
 if [ "$1" == "clean" ]; then
     clean
     echo "Successfully removed files"
-else 
+else
+    install_go
+
     gcc src/main.c src/shell/shell.c -o shell
     go build -o scanner src/tools/port-scanner/portscanner.go
     go build -o ping src/tools/ping/icmp.go
