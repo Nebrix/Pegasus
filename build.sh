@@ -63,12 +63,12 @@ compile_go() {
     local command_pid=$!
 
     while ps -p $command_pid >/dev/null; do
-        print_progress_bar $(ps -o etimes= -p $command_pid) 10 "Compiling $file:" "Pegasus" 0 30 "#"
+        print_progress_bar $(ps -o etimes= -p $command_pid) 10 "Compiling $file:" "Pegasus" 0 30 "█"
         sleep 1
     done
 
     # Print the final progress bar at 100%
-    print_progress_bar 10 10 "Compiling $file:" "Complete" 0 30 "#"
+    print_progress_bar 10 10 "Compiling $file:" "Complete" 0 30 "█"
     echo ""  # Move to the next line after the progress bar
 }
 
@@ -96,7 +96,7 @@ if [ "$1" == "clean" ]; then
 else
     install_go
 
-    gcc src/main.c src/shell/shell.c -o shell
+    gcc src/main.c src/shell/shell.c src/help/help.c -o shell
     compile_go "src/tools/port-scanner/portscanner.go" "scanner"
     compile_go "src/tools/ping/icmp.go" "ping"
     compile_go "src/tools/dns/dns.go" "dns"
@@ -111,12 +111,12 @@ else
 
     # Display the progress bar until the command finishes
     while ps -p $command_pid >/dev/null; do
-        print_progress_bar $(ps -o etimes= -p $command_pid) 60 "Compiling build:" "Pegasus" 0 30 "#"
+        print_progress_bar $(ps -o etimes= -p $command_pid) 60 "Compiling build:" "Pegasus" 0 30 "█"
         sleep 1
     done
 
     # Print the final progress bar at 100%
-    print_progress_bar 60 60 "Compiling Pegasus:" "Complete" 0 30 "#"
+    print_progress_bar 60 60 "Compiling Pegasus:" "Complete" 0 30 "█"
     echo ""  # Move to the next line after the progress bar
 
     echo "Compilation completed."
