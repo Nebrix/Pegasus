@@ -1,9 +1,53 @@
-# Pegasus
+# Pegasus - Unix-Based Hacking Shell
 
-this is only unix based 
+## Introduction
 
-# How To Run 
-```
-chmod +x build.sh
-./build.sh
-```
+Pegasus is a powerful hacking shell designed for Unix-based operating systems. It provides various tools and functionalities that can be used for security testing and ethical hacking purposes. This tool is intended for educational and responsible use only. Please use it responsibly and with proper authorization.
+
+## Installation
+
+To install Pegasus, follow these steps:
+
+1. Clone the repository to your local machine:
+
+
+2. Change into the Pegasus directory:
+
+
+3. Make the build script executable:
+
+
+4. Run the build script:
+
+
+## Usage
+
+Once Pegasus is successfully installed, you can run it by executing the `pegasus` command in your terminal:
+
+
+## Features
+
+Pegasus comes with a variety of hacking and security testing tools, including:
+
+- Port Scanner: Scan for open ports on a target system.
+- ICMP Ping: Send ICMP echo requests to check if a host is up.
+- DNS Enumeration: Perform DNS enumeration on a domain to gather information.
+- WHOIS Lookup: Retrieve WHOIS information for a domain.
+- Packet Sniffer: Capture and analyze network packets.
+- Subnet Calculator: Calculate subnet details and IP ranges.
+
+## Disclaimer
+
+Pegasus is provided for educational and ethical hacking purposes only. The authors and contributors of Pegasus are not responsible for any misuse or illegal activities performed using this tool. Please use it responsibly and in compliance with the laws and regulations of your country.
+
+## Contribution
+
+If you find any bugs or want to contribute to Pegasus, please feel free to open an issue or submit a pull request on the GitHub repository. We welcome your feedback and suggestions to make this tool even better.
+
+## License
+
+Pegasus is open-source software licensed under the [MIT License](https://github.com/codezz-ops/pegasus/blob/main/LICENSE). You are free to use, modify, and distribute this software with proper attribution and in compliance with the license terms.
+
+## Disclaimer
+
+This tool is intended for educational and responsible use only. The authors and contributors of Pegasus are not responsible for any misuse or illegal activities performed using this tool. Use it at your own risk and always seek proper authorization before using it on systems you do not own or control.
