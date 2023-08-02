@@ -10,7 +10,7 @@ To install Pegasus, follow these steps:
 
 1. Clone the repository to your local machine:
 
-`git clone <repo name>`
+`git clone https://github.com/Codezz-ops/Pegasus.git`
 
 2. Change into the Pegasus directory:
 
