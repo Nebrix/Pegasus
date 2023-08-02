@@ -9,48 +9,67 @@ clean() {
 }
 
 install_go() {
-    # Detect the operating system and install Go based on the OS
-    # You can modify this section with the appropriate package manager commands for your Unix distribution.
-    if [[ "$(uname)" == "Linux" ]]; then
-        if command -v apt-get >/dev/null; then
-            sudo apt-get update
-            sudo apt-get install -y golang
-        elif command -v yum >/dev/null; then
-            sudo yum install -y golang
-        elif command -v dnf >/dev/null; then
-            sudo dnf install -y golang
-        elif command -v pacman >/dev/null; then
-            sudo pacman -S go
-        elif command -v zypper >/dev/null; then
-            sudo zypper install -y go
+    if ! command -v go >/dev/null; then
+        # Detect the operating system and install Go based on the OS
+        # You can modify this section with the appropriate package manager commands for your Unix distribution.
+        if [[ "$(uname)" == "Linux" ]]; then
+            if command -v apt-get >/dev/null; then
+                sudo apt-get update
+                sudo apt-get install -y golang
+            elif command -v yum >/dev/null; then
+                sudo yum install -y golang
+            elif command -v dnf >/dev/null; then
+                sudo dnf install -y golang
+            elif command -v pacman >/dev/null; then
+                sudo pacman -S go
+            elif command -v zypper >/dev/null; then
+                sudo zypper install -y go
+            else
+                echo "Package manager not found. Please install Go manually."
+                exit 1
+            fi
+        elif [[ "$(uname)" == "Darwin" ]]; then
+            if command -v brew >/dev/null; then
+                brew install go
+            else
+                echo "Homebrew not found. Please install Go manually."
+                exit 1
+            fi
+        elif [[ "$(uname)" == "FreeBSD" ]]; then
+            sudo pkg install -y go
+        elif [[ "$(uname)" == "OpenBSD" ]]; then
+            doas pkg_add go
+        elif [[ "$(uname)" == "NetBSD" ]]; then
+            pkgin install go
         else
-            echo "Package manager not found. Please install Go manually."
+            echo "Unsupported operating system. Please install Go manually."
             exit 1
         fi
-    elif [[ "$(uname)" == "Darwin" ]]; then
-        if command -v brew >/dev/null; then
-            brew install go
-        else
-            echo "Homebrew not found. Please install Go manually."
-            exit 1
-        fi
-    elif [[ "$(uname)" == "FreeBSD" ]]; then
-        sudo pkg install -y go
-    elif [[ "$(uname)" == "OpenBSD" ]]; then
-        doas pkg_add go
-    elif [[ "$(uname)" == "NetBSD" ]]; then
-        pkgin install go
-    else
-        echo "Unsupported operating system. Please install Go manually."
-        exit 1
     fi
 }
 
 check_and_install_dependencies() {
-    if ! python3 -m PyInstaller --version >/dev/null 2>&1; then
+    if ! command -v python3 -m PyInstaller --version >/dev/null 2>&1; then
         echo "Installing dependencies..."
         pip3 install -r $requirements_file
     fi
+}
+
+compile_go() {
+    local file=$1
+    local output=$2
+
+    go build -o $output $file >/dev/null 2>&1 &
+    local command_pid=$!
+
+    while ps -p $command_pid >/dev/null; do
+        print_progress_bar $(ps -o etimes= -p $command_pid) 10 "Compiling $file:" "Pegasus" 0 30 "#"
+        sleep 1
+    done
+
+    # Print the final progress bar at 100%
+    print_progress_bar 10 10 "Compiling $file:" "Complete" 0 30 "#"
+    echo ""  # Move to the next line after the progress bar
 }
 
 print_progress_bar() {
@@ -78,11 +97,11 @@ else
     install_go
 
     gcc src/main.c src/shell/shell.c -o shell
-    go build -o scanner src/tools/port-scanner/portscanner.go
-    go build -o ping src/tools/ping/icmp.go
-    go build -o dns src/tools/dns/dns.go
-    go build -o whois src/tools/whois/whois.go
-    go build -o sniffer src/tools/packet-sniffer/packet-sniffer.go
+    compile_go "src/tools/port-scanner/portscanner.go" "scanner"
+    compile_go "src/tools/ping/icmp.go" "ping"
+    compile_go "src/tools/dns/dns.go" "dns"
+    compile_go "src/tools/whois/whois.go" "whois"
+    compile_go "src/tools/packet-sniffer/packet-sniffer.go" "sniffer"
     check_and_install_dependencies
 
     echo "Compiling Python code..."
