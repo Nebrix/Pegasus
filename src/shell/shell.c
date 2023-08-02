@@ -25,26 +25,6 @@ void echolnCommand(char **tokens) {
     }
 }
 
-void powerline() {
-    // Get the current working directory
-    char cwd[1024];
-    if (getcwd(cwd, sizeof(cwd)) != NULL) {
-        // Find the last directory in the path
-        char* last_dir = strrchr(cwd, '/');
-        if (last_dir != NULL) {
-            last_dir++; // Move past the slash to get the last directory name
-        } else {
-            last_dir = cwd; // If there's no slash, use the entire path
-        }
-
-        // Print the Powerline-style prompt
-        printf("\033[1;34m%s \033[1;32m➜\033[0m ", last_dir);
-    } else {
-        // Print a simple prompt if getting the current directory fails
-        printf("\n\033[1;32m[➜]\033[0m ");
-    }
-}
-
 void handleSignal(int signal) {
     if (signal == SIGINT)
         printf("Shell > ");
@@ -106,6 +86,24 @@ void printHistory(void) {
     }
 }
 
+char* getPowerlinePrompt() {
+    FILE* powerlineScript = popen("bash scripts/pegasus.sh scripts/powerline/powerline.pg", "r");
+    if (powerlineScript == NULL) {
+        perror("popen");
+        exit(EXIT_FAILURE);
+    }
+
+    char* prompt = (char*)malloc(MAX_INPUT_SIZE);
+    if (fgets(prompt, MAX_INPUT_SIZE, powerlineScript) == NULL) {
+        perror("fgets");
+        exit(EXIT_FAILURE);
+    }
+
+    pclose(powerlineScript);
+    prompt[strcspn(prompt, "\n")] = '\0'; // Remove newline character
+    return prompt;
+}
+
 int shell(void) {
     char input[MAX_INPUT_SIZE];
     char *tokens[MAX_NUM_TOKENS];
@@ -117,7 +115,10 @@ int shell(void) {
     sigaction(SIGINT, &sa, NULL);
 
     while (running) {
-        powerline();
+        char* prompt = getPowerlinePrompt();
+        printf("%s", prompt);
+        free(prompt);
+        
         if (fgets(input, sizeof(input), stdin) == NULL) {
             break;
         }
