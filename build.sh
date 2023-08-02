@@ -89,13 +89,6 @@ install_go() {
     fi
 }
 
-check_and_install_dependencies() {
-    if ! command -v python3 -m PyInstaller --version >/dev/null 2>&1; then
-        echo "Installing dependencies..."
-        pip3 install -r $requirements_file
-    fi
-}
-
 compile_go() {
     local file=$1
     local output=$2
@@ -138,15 +131,13 @@ else
     install_go
     install_pip
 
-    go mod init packet-sniffer
-    go get github.com/google/gopacket
+    sudo pip3 install -r requirements.txt
     gcc src/main.c src/shell/shell.c src/help/help.c src/ascii/ascii.c -o pegasus
     compile_go "src/tools/port-scanner/portscanner.go" "scanner"
     compile_go "src/tools/ping/icmp.go" "ping"
     compile_go "src/tools/dns/dns.go" "dns"
     compile_go "src/tools/whois/whois.go" "whois"
     compile_go "src/tools/packet-sniffer/packet-sniffer.go" "sniffer"
-    check_and_install_dependencies
 
     echo "Compiling Python code..."
     # Start the Python build command in the background
