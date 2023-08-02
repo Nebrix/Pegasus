@@ -96,7 +96,7 @@ if [ "$1" == "clean" ]; then
 else
     install_go
 
-    gcc src/main.c src/shell/shell.c src/help/help.c -o pegasus
+    gcc src/main.c src/shell/shell.c src/help/help.c src/ascii/ascii.c -o pegasus
     compile_go "src/tools/port-scanner/portscanner.go" "scanner"
     compile_go "src/tools/ping/icmp.go" "ping"
     compile_go "src/tools/dns/dns.go" "dns"
