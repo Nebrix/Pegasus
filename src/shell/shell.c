@@ -18,7 +18,7 @@ int historyCount = 0;
 
 void echolnCommand(char **tokens) {
     char command[MAX_INPUT_SIZE];
-    snprintf(command, sizeof(command), "bash scripting/echo.sh scripting/main.ps \"%s\"", tokens[1]);
+    snprintf(command, sizeof(command), "bash scripting/echo.sh scripting/main.pas \"%s\"", tokens[1]);
     int result = system(command);
     if (result == -1) {
         perror("system");
