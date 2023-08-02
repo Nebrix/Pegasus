@@ -1,0 +1,10 @@
+let cwd "$(syscall "pwd")"
+
+function string_last_component {
+  local path="$1"
+  local last_dir="${path##*/}"
+  echo "$last_dir"
+}
+
+let last_dir "$(string_last_component "$cwd")"
+echoln "\033[1;34m$last_dir\033[1;32m ➜\033[0m "
