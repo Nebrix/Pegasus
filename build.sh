@@ -5,7 +5,7 @@ requirements_file="requirements.txt"
 
 clean() {
     echo "removing..."
-    rm -rf pegasus scanner ping dns subnet dist/ build/ subnet.spec whois sniffer
+    rm -rf pegasus scanner ping dns subnet dist/ build/ subnet.spec whois sniffer go.mod go.sum
 }
 
 install_pip() {
@@ -138,6 +138,8 @@ else
     install_go
     install_pip
 
+    go mod init packet-sniffer
+    go get github.com/google/gopacket
     gcc src/main.c src/shell/shell.c src/help/help.c src/ascii/ascii.c -o pegasus
     compile_go "src/tools/port-scanner/portscanner.go" "scanner"
     compile_go "src/tools/ping/icmp.go" "ping"
