@@ -15,6 +15,15 @@
 char history[MAX_HISTORY_SIZE][MAX_INPUT_SIZE];
 int historyCount = 0;
 
+void echolnCommand(char **tokens) {
+    char command[MAX_INPUT_SIZE];
+    snprintf(command, sizeof(command), "bash scripting/echo.sh %s", tokens[1]);
+    int result = system(command);
+    if (result == -1) {
+        perror("system");
+    }
+}
+
 void powerline() {
     // Get the current working directory
     char cwd[1024];
@@ -182,6 +191,8 @@ int shell(void) {
             if (result == -1) {
                 perror("system");
             }
+        } else if (strcmp(tokens[0], "echoln") == 0) {
+            echolnCommand(tokens);
         } else if (strcmp(tokens[0], "history") == 0) {
             printHistory();
         } else {
