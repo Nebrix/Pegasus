@@ -1,11 +1,12 @@
 #!/bin/bash
 
-command="python3 -m PyInstaller --onefile src/tools/subnet/subnet.py"
+command_subnet="python3 -m PyInstaller --onefile src/tools/subnet/subnet.py"
+command_ip="python3 -m PyInstaller --onefile src/tools/ip-lookup/ip.py"
 requirements_file="requirements.txt"
 
 clean() {
     echo "removing..."
-    rm -rf pegasus scanner ping dns subnet dist/ build/ subnet.spec whois dirb
+    rm -rf pegasus scanner ping dns subnet dist/ build/ subnet.spec whois dirb ip.spec
 }
 
 install_pip() {
@@ -106,6 +107,25 @@ compile_go() {
     echo ""  # Move to the next line after the progress bar
 }
 
+compile_python() {
+    local command=$1
+    local task=$2
+
+    # Start the Python build command in the background
+    $command >/dev/null 2>&1 &
+    local command_pid=$!
+
+    # Display the progress bar until the command finishes
+    while ps -p $command_pid >/dev/null; do
+        print_progress_bar $(ps -o etimes= -p $command_pid) 60 "Compiling $task:" "Pegasus" 0 30 "█"
+        sleep 1
+    done
+
+    # Print the final progress bar at 100%
+    print_progress_bar 60 60 "Compiling $task:" "Complete" 0 30 "█"
+    echo ""  # Move to the next line after the progress bar
+}
+
 print_progress_bar() {
     local iteration=$1
     local total=$2
@@ -139,20 +159,9 @@ else
     compile_go "src/tools/whois/whois.go" "whois"
     compile_go "src/tools/dirb/dirb.go" "dirb"
 
-    echo "Compiling Python code..."
-    # Start the Python build command in the background
-    $command >/dev/null 2>&1 &
-    command_pid=$!
-
-    # Display the progress bar until the command finishes
-    while ps -p $command_pid >/dev/null; do
-        print_progress_bar $(ps -o etimes= -p $command_pid) 60 "Compiling build:" "Pegasus" 0 30 "█"
-        sleep 1
-    done
-
-    # Print the final progress bar at 100%
-    print_progress_bar 60 60 "Compiling Pegasus:" "Complete" 0 30 "█"
-    echo ""  # Move to the next line after the progress bar
+    echo "Compiling Python scripts..."
+    compile_python "$command_subnet" "subnet"
+    compile_python "$command_ip" "ip"
 
     echo "Compilation completed."
     sudo "./pegasus"
