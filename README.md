@@ -1,7 +1,7 @@
 # Pegasus - Unix-Based Hacking Shell
 
 <p align="center">
-    ![Pegasus Logo](https://github.com/Codezz-ops/Pegasus/assets/112660193/2ed1a0a5-f44e-4550-99dc-6b5aebbb64cf)
+    <img src="images/pegasus.png" alt="pegasus logo" width="200" height="200">
 </p>
 
 ## Introduction
