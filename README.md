@@ -1,12 +1,14 @@
 # Pegasus - Unix-Based Hacking Shell
 
+![Pegusus Logo](https://github.com/Codezz-ops/Pegasus/assets/112660193/6a5365e8-6272-4707-9858-32a5368d2cf6)
+
 ## Introduction
 
 Pegasus is a powerful hacking shell designed for Unix-based operating systems. It provides various tools and functionalities that can be used for security testing and ethical hacking purposes. This tool is intended for educational and responsible use only. Please use it responsibly and with proper authorization.
 
 ### Note
 
-If you are using windows you would need to use a VM or a linux subsystem (WSL)
+If you are using Windows, you would need to use a VM or a Linux subsystem (WSL) to run Pegasus.
 
 ## Installation
 
