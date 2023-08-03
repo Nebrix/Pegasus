@@ -36,7 +36,7 @@ To install Pegasus, follow these steps:
 
 Once Pegasus is successfully installed, you can run it by executing the `pegasus` command in your terminal:
 
-![Screenshot from 2023-08-03 07-05-15](https://github.com/Codezz-ops/Pegasus/assets/112660193/32d2fd19-b35d-469c-935c-34eb8f28d95c)
+![Pegasus Terminal](https://github.com/Codezz-ops/Pegasus/assets/112660193/32d2fd19-b35d-469c-935c-34eb8f28d95c)
 
 ## Features
 
