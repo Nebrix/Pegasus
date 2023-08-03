@@ -2,11 +2,12 @@
 
 command_subnet="python3 -m PyInstaller --onefile src/tools/subnet/subnet.py"
 command_ip="python3 -m PyInstaller --onefile src/tools/ip-lookup/ip.py"
+command_sniffer="python3 -m PyInstaller --onefile src/tools/packet-sniffer/packet-sniffer.py"
 requirements_file="requirements.txt"
 
 clean() {
     echo "removing..."
-    rm -rf pegasus scanner ping dns subnet dist/ build/ subnet.spec whois dirb ip.spec
+    rm -rf pegasus scanner ping dns subnet dist/ build/ subnet.spec whois dirb ip.spec packet-sniffer.spec
 }
 
 install_pip() {
@@ -162,6 +163,7 @@ else
     echo "Compiling Python scripts..."
     compile_python "$command_subnet" "subnet"
     compile_python "$command_ip" "ip"
+    compile_python "$command_sniffer" "sniffer"
 
     echo "Compilation completed."
     sudo "./pegasus"
