@@ -44,6 +44,7 @@ Pegasus comes with a variety of hacking and security testing tools, including:
 - Packet Sniffer: Capture and analyze network packets.
 - Subnet Calculator: Calculate subnet details and IP ranges.
 - IP Lookup: Retrieve IP information for an IP.
+- Hash Ident: Identifies the hash.
 
 ## Future Updates
 - Working on implemting an inline text editor for custom scripting language
