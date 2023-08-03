@@ -1,7 +1,7 @@
 # Pegasus - Unix-Based Hacking Shell
 
 <p align="center">
-    <img src="images/pegasus.png" alt="pegasus logo" width="200" height="200">
+    <img src="images/pegasus.png" alt="pegasus logo" width="400" height="400">
 </p>
 
 ## Introduction
