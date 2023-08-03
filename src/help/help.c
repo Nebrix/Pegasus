@@ -28,5 +28,5 @@ void Help() {
     puts("WHOIS Lookup (whois): Retrieve WHOIS information for a domain.");
     puts("Packet Sniffer (sniffer): Capture and analyze network packets.");
     puts("Subnet Calculator (subnet): Calculate subnet details and IP ranges.");
-    puts("Ip Lookup (ip): Gets basic information on the ip.");
+    puts("Ip Lookup (iplookup): Gets basic information on the ip.");
 }
