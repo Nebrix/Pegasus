@@ -52,12 +52,11 @@ Pegasus comes with a variety of hacking and security testing tools, including:
 - Hash Ident: Identifies the hash.
 
 ## Future Updates
+
+We are continuously improving Pegasus and working on exciting new features:
+
 - Working on implemting an inline text editor for custom scripting language
 - Working on custom scripting language network specific projects  
-
-## Disclaimer
-
-Pegasus is provided for educational and ethical hacking purposes only. The authors and contributors of Pegasus are not responsible for any misuse or illegal activities performed using this tool. Please use it responsibly and in compliance with the laws and regulations of your country.
 
 ## Contribution
 
@@ -68,5 +67,7 @@ If you find any bugs or want to contribute to Pegasus, please feel free to open 
 Pegasus is open-source software licensed under the [MIT License](https://github.com/codezz-ops/pegasus/blob/main/LICENSE). You are free to use, modify, and distribute this software with proper attribution and in compliance with the license terms.
 
 ## Disclaimer
+
+Pegasus is provided for educational and ethical hacking purposes only. The authors and contributors of Pegasus are not responsible for any misuse or illegal activities performed using this tool. Please use it responsibly and in compliance with the laws and regulations of your country.
 
 This tool is intended for educational and responsible use only. The authors and contributors of Pegasus are not responsible for any misuse or illegal activities performed using this tool. Use it at your own risk and always seek proper authorization before using it on systems you do not own or control.
