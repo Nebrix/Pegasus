@@ -43,6 +43,7 @@ Pegasus comes with a variety of hacking and security testing tools, including:
 - WHOIS Lookup: Retrieve WHOIS information for a domain.
 - Packet Sniffer: Capture and analyze network packets.
 - Subnet Calculator: Calculate subnet details and IP ranges.
+- IP Lookup: Retrieve IP information for an IP.
 
 ## Future Updates
 - Working on implemting an inline text editor for custom scripting language
