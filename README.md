@@ -4,6 +4,10 @@
 
 Pegasus is a powerful hacking shell designed for Unix-based operating systems. It provides various tools and functionalities that can be used for security testing and ethical hacking purposes. This tool is intended for educational and responsible use only. Please use it responsibly and with proper authorization.
 
+### Note
+
+If you are using windows you would need to use a VM or a linux subsystem (WSL)
+
 ## Installation
 
 To install Pegasus, follow these steps:
