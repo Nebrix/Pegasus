@@ -2,14 +2,14 @@
 
 command_subnet="python3 -m PyInstaller --onefile src/tools/subnet/subnet.py"
 command_ip="python3 -m PyInstaller --onefile src/tools/ip-lookup/ip.py"
-command_sniffer="python3 -m PyInstaller --onefile src/tools/packet-sniffer/packet-sniffer.py"
+command_sniffer="python3 -m PyInstaller --onefile src/tools/packet-sniffer/sniffer.py"
 command_hashid="python3 -m PyInstaller --onefile src/tools/hashident/hash.py"
 command_hash="python3 -m PyInstaller --onefile src/tools/hash/genhash.py"
 requirements_file="requirements.txt"
 
 clean() {
     echo "removing..."
-    rm -rf pegasus scanner ping dns subnet dist/ build/ subnet.spec whois dirb ip.spec packet-sniffer.spec hash.spec genhash.spec
+    rm -rf pegasus scanner ping dns subnet dist/ build/ subnet.spec whois dirb ip.spec sniffer.spec hash.spec genhash.spec
 }
 
 install_pip() {
@@ -155,7 +155,7 @@ else
     install_pip
 
     sudo pip3 install -r requirements.txt
-    gcc src/main.c src/shell/shell.c src/help/help.c src/ascii/ascii.c src/shell/helpers/helpers.c src/shell/command/command.c src/shell/history/history.c -o pegasus
+    gcc src/main.c src/shell/shell.c src/help/help.c src/ascii/ascii.c src/shell/helpers/helpers.c src/shell/command/command.c src/shell/history/history.c src/core-util/core.c -o pegasus
     compile_go "src/tools/port-scanner/portscanner.go" "scanner"
     compile_go "src/tools/ping/icmp.go" "ping"
     compile_go "src/tools/dns/dns.go" "dns"

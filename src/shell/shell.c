@@ -14,6 +14,7 @@
 #include "history/history.h"
 #include "command/command.h"
 #include "helpers/helpers.h"
+#include "../core-util/core.h"
 
 #define MAX_HISTORY_SIZE 1024
 #define MAX_INPUT_SIZE 1024
@@ -119,11 +120,13 @@ int shell(void) {
                 }
             }
         } else if (strcmp(tokens[0], "sniffer") == 0) {
-            system("./dist/packet-sniffer");
+            system("./dist/sniffer");
         } else if (strcmp(tokens[0], "hashident") == 0) {
             system("./dist/hash");
         } else if (strcmp(tokens[0], "hash") == 0) {
             system("./dist/genhash");
+        } else if (strcmp(tokens[0], "ls") == 0) {
+            list_command();
         } else if (strcmp(tokens[0], "echoln") == 0) {
             echolnCommand(tokens);
         } else if (strcmp(tokens[0], "history") == 0) {
