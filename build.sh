@@ -9,7 +9,7 @@ requirements_file="requirements.txt"
 
 clean() {
     echo "removing..."
-    rm -rf pegasus scanner ping dns subnet dist/ build/ subnet.spec whois dirb ip.spec sniffer.spec hash.spec genhash.spec
+    rm -rf pegasus scanner ping dns subnet dist/ build/ subnet.spec whois dirb ip.spec lsniffer.spec hash.spec genhash.spec
 }
 
 install_pip() {
