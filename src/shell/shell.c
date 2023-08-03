@@ -122,6 +122,8 @@ int shell(void) {
             system("./dist/packet-sniffer");
         } else if (strcmp(tokens[0], "hashident") == 0) {
             system("./dist/hash");
+        } else if (strcmp(tokens[0], "hash") == 0) {
+            system("./dist/genhash");
         } else if (strcmp(tokens[0], "echoln") == 0) {
             echolnCommand(tokens);
         } else if (strcmp(tokens[0], "history") == 0) {

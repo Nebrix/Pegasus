@@ -4,6 +4,7 @@ command_subnet="python3 -m PyInstaller --onefile src/tools/subnet/subnet.py"
 command_ip="python3 -m PyInstaller --onefile src/tools/ip-lookup/ip.py"
 command_sniffer="python3 -m PyInstaller --onefile src/tools/packet-sniffer/packet-sniffer.py"
 command_hashid="python3 -m PyInstaller --onefile src/tools/hashident/hash.py"
+command_hash="python3 -m PyInstaller --onefile src/tools/hash/genhash.py"
 requirements_file="requirements.txt"
 
 clean() {
@@ -166,6 +167,7 @@ else
     compile_python "$command_ip" "ip"
     compile_python "$command_sniffer" "sniffer"
     compile_python "$command_hashid" "hashident"
+    compile_python "$command_hash" "genhash"
 
     echo "Compilation completed."
     sudo "./pegasus"
