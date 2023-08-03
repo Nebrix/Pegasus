@@ -45,7 +45,7 @@ void get_distribution_name(char *distro, size_t distro_size) {
 }
 
 void ascii() {
-    char *version = "0.0.1";
+    char *version = "0.0.2";
     char *username = getlogin();
 
     char distro[256];
