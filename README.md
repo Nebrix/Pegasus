@@ -58,6 +58,7 @@ We are continuously improving Pegasus and working on exciting new features:
 
 - Working on implemting an inline text editor for custom scripting language
 - Working on custom scripting language network specific projects  
+- Working on implemting an inline chat room for connection on same network connection
 
 ## Contribution
 
