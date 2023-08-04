@@ -12,6 +12,10 @@ Pegasus is a powerful hacking shell designed for Unix-based operating systems. I
 
 If you are using Windows, you would need to use a VM or a Linux subsystem (WSL) to run Pegasus.
 
+#### Note 
+
+If you use the Experimental branch, expect things to not function correctly.
+
 ## Installation
 
 To install Pegasus, follow these steps:
