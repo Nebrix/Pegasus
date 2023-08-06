@@ -20,6 +20,46 @@
 #define MAX_INPUT_SIZE 1024
 #define MAX_NUM_TOKENS 1024
 
+typedef enum {
+    CMD_EXIT,
+    CMD_RELOAD,
+    CMD_HELP,
+    CMD_IPLOOKUP,
+    CMD_PING,
+    CMD_SCANNER,
+    CMD_DNSLOOKUP,
+    CMD_SUBNET,
+    CMD_WHOIS,
+    CMD_DIRB,
+    CMD_SNIFFER,
+    CMD_HASHIDENT,
+    CMD_HASH,
+    CMD_LS,
+    CMD_ECHOLN,
+    CMD_HISTORY,
+    CMD_UNKNOWN
+} CommandType;
+
+CommandType getCommandType(const char* command) {
+    if (strcmp(command, "exit") == 0) return CMD_EXIT;
+    if (strcmp(command, "reload") == 0) return CMD_RELOAD;
+    if (strcmp(command, "help") == 0) return CMD_HELP;
+    if (strcmp(command, "iplookup") == 0) return CMD_IPLOOKUP;
+    if (strcmp(command, "ping") == 0) return CMD_PING;
+    if (strcmp(command, "scanner") == 0) return CMD_SCANNER;
+    if (strcmp(command, "dnslookup") == 0) return CMD_DNSLOOKUP;
+    if (strcmp(command, "subnet") == 0) return CMD_SUBNET;
+    if (strcmp(command, "whois") == 0) return CMD_WHOIS;
+    if (strcmp(command, "dirb") == 0) return CMD_DIRB;
+    if (strcmp(command, "sniffer") == 0) return CMD_SNIFFER;
+    if (strcmp(command, "hashident") == 0) return CMD_HASHIDENT;
+    if (strcmp(command, "hash") == 0) return CMD_HASH;
+    if (strcmp(command, "ls") == 0) return CMD_LS;
+    if (strcmp(command, "echoln") == 0) return CMD_ECHOLN;
+    if (strcmp(command, "history") == 0) return CMD_HISTORY;
+    return CMD_UNKNOWN;
+}
+
 int shell(void) {
     char input[MAX_INPUT_SIZE];
     char *tokens[MAX_NUM_TOKENS];
@@ -53,120 +93,152 @@ int shell(void) {
         int tokenCount = tokenizeInput(input, tokens);
 
         // Handle built-in commands
-        if (strcmp(tokens[0], "exit") == 0) {
-            running = false;
-        } else if (strcmp(tokens[0], "reload") == 0) {
-            system("clear");
-            ascii();
-        } else if (strcmp(tokens[0], "help") == 0) {
-            Help();
-        } else if (strcmp(tokens[0], "iplookup") == 0) {
-            system("./dist/ip");
-        } else if (strcmp(tokens[0], "ping") == 0) {
-            if (tokenCount < 2) {
-                pingHelp();
-            } else {
-                char command[MAX_INPUT_SIZE];
-                snprintf(command, sizeof(command), "./ping %s", tokens[1]);
-                int result = system(command);
-                if (result == -1) {
-                    perror("system");
-                }
-            }
-        } else if (strcmp(tokens[0], "scanner") == 0) {
-            if (tokenCount < 4) {
-                scannerHelp();
-            } else {
-                char command[MAX_INPUT_SIZE];
-                snprintf(command, sizeof(command), "./scanner %s %d %d", tokens[1], tokens[2], tokens[3]);
-                int result = system(command);
-                if (result == -1) {
-                    perror("system");
-                }
-            }
-        } else if (strcmp(tokens[0], "dnslookup") == 0) {
-            if (tokenCount < 2) {
-                dnslookupHelp();
-            } else {
-                char command[MAX_INPUT_SIZE];
-                snprintf(command, sizeof(command), "./dns %s", tokens[1]);
-                int result = system(command);
-                if (result == -1) {
-                    perror("system");
-                }
-            }
-        } else if (strcmp(tokens[0], "subnet") == 0) {
-            system("./dist/subnet");
-        } else if (strcmp(tokens[0], "whois") == 0) {
-            if (tokenCount > 2) {
-                whoisHelp();
-            } else {
-                char command[MAX_INPUT_SIZE];
-                snprintf(command, sizeof(command), "./whois %s", tokens[1]);
-                int result = system(command);
-                if (result == -1) {
-                    perror("system");
-                }
-            }
-        } else if (strcmp(tokens[0], "dirb") == 0) {
-            if (tokenCount > 2) {
-                dirbHelp();
-            } else {
-                char command[MAX_INPUT_SIZE];
-                snprintf(command, sizeof(command), "./dirb %s", tokens[1]);
-                int result = system(command);
-                if (result == -1) {
-                    perror("system");
-                }
-            }
-        } else if (strcmp(tokens[0], "sniffer") == 0) {
-            system("./dist/sniffer");
-        } else if (strcmp(tokens[0], "hashident") == 0) {
-            system("./dist/hash");
-        } else if (strcmp(tokens[0], "hash") == 0) {
-            system("./dist/genhash");
-        } else if (strcmp(tokens[0], "ls") == 0) {
-            list_command();
-        } else if (strcmp(tokens[0], "echoln") == 0) {
-            echolnCommand(tokens);
-        } else if (strcmp(tokens[0], "history") == 0) {
-            printHistory();
-        } else {
-            // Handle command execution
-            addToHistory(input);
-            bool background = false;
+        CommandType commandType = getCommandType(tokens[0]);
+        switch (commandType) {
+            case CMD_EXIT:
+                running = false;
+                break;
 
-            // Check if the last token is '&'
-            char *last_token = tokens[tokenCount - 1];
-            if (strcmp(last_token, "&") == 0) {
-                background = true;
-                *last_token = '\0'; // Remove the '&' from tokens
-            }
+            case CMD_RELOAD:
+                system("clear");
+                ascii();
+                break;
 
-            // Check if input/output redirection is required
-            int fd_in = 0, fd_out = 1;
-            for (int i = 0; tokens[i] != NULL; i++) {
-                if (strcmp(tokens[i], "<") == 0) {
-                    tokens[i] = NULL;
-                    fd_in = open(tokens[i + 1], O_RDONLY);
-                    if (fd_in == -1) {
-                        perror("open");
-                        break;
+            case CMD_HELP:
+                Help();
+                break;
+
+            case CMD_IPLOOKUP:
+                system("./dist/ip");
+                break;
+
+            case CMD_PING:
+                if (tokenCount < 2) {
+                    pingHelp();
+                } else {
+                    char command[MAX_INPUT_SIZE];
+                    snprintf(command, sizeof(command), "./ping %s", tokens[1]);
+                    int result = system(command);
+                    if (result == -1) {
+                        perror("system");
                     }
-                    dup2(fd_in, STDIN_FILENO);
-                    close(fd_in);
-                } else if (strcmp(tokens[i], ">") == 0) {
-                    tokens[i] = NULL;
-                    fd_out = open(tokens[i + 1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
-                    if (fd_out == -1) {
-                        perror("open");
-                        break;
-                    }
-                    dup2(fd_out, STDOUT_FILENO);
-                    close(fd_out);
                 }
-            }
-            executeCommand(tokens, background);
+                break;
+            
+            case CMD_SCANNER:
+                if (tokenCount < 4) {
+                    scannerHelp();
+                } else {
+                    char command[MAX_INPUT_SIZE];
+                    snprintf(command, sizeof(command), "./scanner %s %d %d", tokens[1], tokens[2], tokens[3]);
+                    int result = system(command);
+                    if (result == -1) {
+                        perror("system");
+                    }
+                }
+                break;
+
+            case CMD_DNSLOOKUP:
+                if (tokenCount < 2) {
+                    dnslookupHelp();
+                } else {
+                    char command[MAX_INPUT_SIZE];
+                    snprintf(command, sizeof(command), "./dns %s", tokens[1]);
+                    int result = system(command);
+                    if (result == -1) {
+                        perror("system");
+                    }
+                }
+                break;
+
+            case CMD_SUBNET:
+                system("./dist/subnet");
+                break;
+            
+            case CMD_WHOIS:
+                if (tokenCount > 2) {
+                    whoisHelp();
+                } else {
+                    char command[MAX_INPUT_SIZE];
+                    snprintf(command, sizeof(command), "./whois %s", tokens[1]);
+                    int result = system(command);
+                    if (result == -1) {
+                        perror("system");
+                    }
+                }
+                break;
+
+            case CMD_DIRB:
+                if (tokenCount > 2) {
+                    dirbHelp();
+                } else {
+                    char command[MAX_INPUT_SIZE];
+                    snprintf(command, sizeof(command), "./dirb %s", tokens[1]);
+                    int result = system(command);
+                    if (result == -1) {
+                        perror("system");
+                    }
+                }
+                break;
+
+            case CMD_SNIFFER:
+                system("./dist/sniffer");
+                break;
+
+            case CMD_HASHIDENT:
+                system("./dist/hash");
+                break;
+            
+            case CMD_HASH:
+                system("./dist/genhash");
+                break;
+
+            case CMD_LS:
+                list_command();
+                break;
+
+            case CMD_ECHOLN:
+                echolnCommand(tokens);
+                break;
+
+            case CMD_HISTORY:
+                printHistory();
+                break;
+
+            case CMD_UNKNOWN:
+                addToHistory(input);
+                bool background = false;
+
+                char *last_token = tokens[tokenCount - 1];
+                if (strcmp(last_token, "&") == 0) {
+                    background = true;
+                    *last_token = '\0';
+                }
+
+                int fd_in = 0, fd_out = 1;
+                for (int i = 0; tokens[i] != NULL; i++) {
+                    if (strcmp(tokens[i], "<") == 0) {
+                        tokens[i] = NULL;
+                        fd_in = open(tokens[i + 3], O_RDONLY);
+                        if (fd_in == -1) {
+                            perror("open");
+                            break;
+                        }
+                        dup2(fd_in, STDIN_FILENO);
+                        close(fd_in);
+                    } else if (strcmp(tokens[i], ">") == 0) {
+                        tokens[i] = NULL;
+                        fd_out = open(tokens[i + 1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
+                        if (fd_out == -1) {
+                            perror("open");
+                            break;
+                        }
+                        dup2(fd_out, STDOUT_FILENO);
+                        close(fd_out);
+                    }
+                }
+                executeCommand(tokens, background);
+                break;
         }
     }
 
