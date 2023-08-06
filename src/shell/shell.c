@@ -208,7 +208,7 @@ int shell(void) {
                 break;
 
             case CMD_SERVER:
-                system("./server");
+                system("nohup ./server &");
                 break;
 
             case CMD_UNKNOWN:

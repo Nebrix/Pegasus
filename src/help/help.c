@@ -31,4 +31,5 @@ void Help() {
     puts("Ip Lookup (iplookup): Gets basic information on the ip.");
     puts("HashID (hashident): Identifies the hash.");
     puts("Hash (hash): Generate hash value.");
+    puts("Server (server): creates a server on localhost that be connected by telnet or ncat.");
 }
