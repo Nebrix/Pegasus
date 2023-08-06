@@ -55,6 +55,7 @@ Pegasus comes with a variety of hacking and security testing tools, including:
 - IP Lookup: Retrieve IP information for an IP.
 - Hash Ident: Identifies the hash.
 - Hash: Generates hash value. 
+- Server (server): creates a server on localhost that be connected by telnet or ncat.
 
 ## Future Updates
 
@@ -62,7 +63,7 @@ We are continuously improving Pegasus and working on exciting new features:
 
 - Working on implemting an inline text editor for custom scripting language
 - Working on custom scripting language network specific projects  
-- Working on implemting an inline chat room for connection on same network connection
+- Working on implemting an inline chat room for connection on same network connection :heavy_check_mark:
 
 ## Contribution
 

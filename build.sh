@@ -9,7 +9,7 @@ requirements_file="requirements.txt"
 
 clean() {
     echo "removing..."
-    rm -rf pegasus scanner ping dns subnet dist/ build/ subnet.spec whois dirb ip.spec sniffer.spec hash.spec genhash.spec
+    rm -rf pegasus scanner ping dns subnet dist/ build/ subnet.spec whois dirb ip.spec sniffer.spec hash.spec genhash.spec server nohup.out
 }
 
 install_pip() {
@@ -161,6 +161,7 @@ else
     compile_go "src/tools/dns/dns.go" "dns"
     compile_go "src/tools/whois/whois.go" "whois"
     compile_go "src/tools/dirb/dirb.go" "dirb"
+    compile_go "src/tools/chat-room/server.go" "server"
 
     echo "Compiling Python scripts..."
     compile_python "$command_subnet" "subnet"
