@@ -231,8 +231,15 @@ int shell(void) {
                     if (server_pid > 0) {
                         killServer(server_pid);
                         server_pid = -1;
+                        printf("Server killed.\n");
                     } else {
                         printf("Server is not running.\n");
+                    }
+                } else if (tokenCount >= 2 && strcmp(tokens[1], "status") == 0) {
+                    if (server_pid > 0) {
+                        printf("Server is active (PID: %d).\n", server_pid);
+                    } else {
+                        printf("Server is down.\n");
                     }
                 } else {
                     if (server_pid > 0) {
