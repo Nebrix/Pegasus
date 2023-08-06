@@ -161,6 +161,7 @@ else
     compile_go "src/tools/dns/dns.go" "dns"
     compile_go "src/tools/whois/whois.go" "whois"
     compile_go "src/tools/dirb/dirb.go" "dirb"
+    compile_go "src/tools/chat-room/server.go" "server"
 
     echo "Compiling Python scripts..."
     compile_python "$command_subnet" "subnet"
