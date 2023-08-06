@@ -2,8 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-#include <sys/wait.h>
-#include <sys/types.h>
 #include <fcntl.h>
 #include <stdbool.h>
 #include <signal.h>
@@ -19,6 +17,26 @@
 #define MAX_HISTORY_SIZE 1024
 #define MAX_INPUT_SIZE 1024
 #define MAX_NUM_TOKENS 1024
+
+pid_t startServer() {
+    pid_t pid = fork();
+    if (pid == -1) {
+        perror("fork");
+        exit(EXIT_FAILURE);
+    } else if (pid == 0) {
+        execlp("nohup ./server &", "server", NULL);
+        perror("exec");
+        exit(EXIT_FAILURE);
+    } else {
+        return pid;
+    }
+}
+
+void killServer(pid_t pid) {
+    if (kill(pid, SIGKILL) == -1) {
+        perror("kill");
+    } 
+}
 
 typedef enum {
     CMD_EXIT,
@@ -66,6 +84,7 @@ int shell(void) {
     char input[MAX_INPUT_SIZE];
     char *tokens[MAX_NUM_TOKENS];
     bool running = true;
+    pid_t server_pid = -1;
 
     struct sigaction sa;
     memset(&sa, 0, sizeof(sa));
@@ -208,7 +227,21 @@ int shell(void) {
                 break;
 
             case CMD_SERVER:
-                system("nohup ./server &");
+                if (tokenCount >= 2 && strcmp(tokens[1], "kill") == 0) {
+                    if (server_pid > 0) {
+                        killServer(server_pid);
+                        server_pid = -1;
+                    } else {
+                        printf("Server is not running.\n");
+                    }
+                } else {
+                    if (server_pid > 0) {
+                        printf("Server is already running (PID: %d).\n", server_pid);
+                    } else {
+                        server_pid = startServer();
+                        printf("Server started (PID: %d).\n", server_pid);
+                    }
+                }
                 break;
 
             case CMD_UNKNOWN:
