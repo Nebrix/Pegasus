@@ -117,23 +117,28 @@ int shell(void) {
         CommandType commandType = getCommandType(tokens[0]);
         switch (commandType) {
             case CMD_EXIT:
+                addToHistory(input);
                 running = false;
                 break;
 
             case CMD_RELOAD:
+                addToHistory(input);
                 system("clear");
                 ascii();
                 break;
 
             case CMD_HELP:
+                addToHistory(input);
                 Help();
                 break;
 
             case CMD_IPLOOKUP:
+                addToHistory(input);
                 system("./dist/ip");
                 break;
 
             case CMD_PING:
+                addToHistory(input);
                 if (tokenCount < 2) {
                     pingHelp();
                 } else {
@@ -147,6 +152,7 @@ int shell(void) {
                 break;
             
             case CMD_SCANNER:
+                addToHistory(input);
                 if (tokenCount < 4) {
                     scannerHelp();
                 } else {
@@ -160,6 +166,7 @@ int shell(void) {
                 break;
 
             case CMD_DNSLOOKUP:
+                addToHistory(input);
                 if (tokenCount < 2) {
                     dnslookupHelp();
                 } else {
@@ -173,10 +180,12 @@ int shell(void) {
                 break;
 
             case CMD_SUBNET:
+                addToHistory(input);
                 system("./dist/subnet");
                 break;
             
             case CMD_WHOIS:
+                addToHistory(input);
                 if (tokenCount > 2) {
                     whoisHelp();
                 } else {
@@ -190,6 +199,7 @@ int shell(void) {
                 break;
 
             case CMD_DIRB:
+                addToHistory(input);
                 if (tokenCount > 2) {
                     dirbHelp();
                 } else {
@@ -203,30 +213,37 @@ int shell(void) {
                 break;
 
             case CMD_SNIFFER:
+                addToHistory(input);
                 system("./dist/sniffer");
                 break;
 
             case CMD_HASHIDENT:
+                addToHistory(input);
                 system("./dist/hash");
                 break;
             
             case CMD_HASH:
+                addToHistory(input);
                 system("./dist/genhash");
                 break;
 
             case CMD_LS:
+                addToHistory(input);
                 list_command();
                 break;
 
             case CMD_ECHOLN:
+                addToHistory(input);
                 echolnCommand(tokens);
                 break;
 
             case CMD_HISTORY:
+                addToHistory(input);
                 printHistory();
                 break;
 
             case CMD_SERVER:
+                addToHistory(input);
                 if (tokenCount >= 2 && strcmp(tokens[1], "kill") == 0) {
                     if (server_pid > 0) {
                         killServer(server_pid);
@@ -252,7 +269,6 @@ int shell(void) {
                 break;
 
             case CMD_UNKNOWN:
-                addToHistory(input);
                 bool background = false;
 
                 char *last_token = tokens[tokenCount - 1];
@@ -283,6 +299,7 @@ int shell(void) {
                         close(fd_out);
                     }
                 }
+                addToHistory(input);
                 executeCommand(tokens, background);
                 break;
         }
