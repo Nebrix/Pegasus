@@ -8,9 +8,14 @@
 
 Pegasus is a powerful hacking shell designed for Unix-based operating systems. It provides various tools and functionalities that can be used for security testing and ethical hacking purposes. This tool is intended for educational and responsible use only. Please use it responsibly and with proper authorization.
 
+# Important 
+
+You cannot run telnet inside of the shell or it will kill the shell (Still trouble shooting)
+
 ### Note
 
 If you are using Windows, you would need to use a VM or a Linux subsystem (WSL) to run Pegasus.
+
 
 ### Note 
 
