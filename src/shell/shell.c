@@ -25,8 +25,6 @@ pid_t startServer() {
         exit(EXIT_FAILURE);
     } else if (pid == 0) {
         execlp("./server &", "server", NULL);
-        perror("exec");
-        exit(EXIT_FAILURE);
     } else {
         return pid;
     }
