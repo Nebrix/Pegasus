@@ -24,7 +24,7 @@ pid_t startServer() {
         perror("fork");
         exit(EXIT_FAILURE);
     } else if (pid == 0) {
-        execlp("nohup ./server &", "server", NULL);
+        execlp("./server &", "server", NULL);
         perror("exec");
         exit(EXIT_FAILURE);
     } else {
