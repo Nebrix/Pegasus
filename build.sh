@@ -12,87 +12,6 @@ clean() {
     rm -rf pegasus scanner ping dns subnet dist/ build/ subnet.spec whois dirb ip.spec sniffer.spec hash.spec genhash.spec server nohup.out
 }
 
-install_pip() {
-    if ! command -v pip3 >/dev/null; then
-        echo "Installing pip..."
-        # Detect the operating system and install pip based on the OS
-        # You can modify this section with the appropriate package manager commands for your Unix distribution.
-        if [[ "$(uname)" == "Linux" ]]; then
-            if command -v apt-get >/dev/null; then
-                sudo apt-get update
-                sudo apt-get install -y python3-pip
-            elif command -v yum >/dev/null; then
-                sudo yum install -y python3-pip
-            elif command -v dnf >/dev/null; then
-                sudo dnf install -y python3-pip
-            elif command -v pacman >/dev/null; then
-                sudo pacman -S python-pip
-            elif command -v zypper >/dev/null; then
-                sudo zypper install -y python3-pip
-            else
-                echo "Package manager not found. Please install pip manually."
-                exit 1
-            fi
-        elif [[ "$(uname)" == "Darwin" ]]; then
-            if command -v brew >/dev/null; then
-                brew install python
-            else
-                echo "Homebrew not found. Please install pip manually."
-                exit 1
-            fi
-        elif [[ "$(uname)" == "FreeBSD" ]]; then
-            sudo pkg install -y py38-pip
-        elif [[ "$(uname)" == "OpenBSD" ]]; then
-            doas pkg_add py3-pip
-        elif [[ "$(uname)" == "NetBSD" ]]; then
-            pkgin install py39-pip
-        else
-            echo "Unsupported operating system. Please install pip manually."
-            exit 1
-        fi
-    fi
-}
-
-install_go() {
-    if ! command -v go >/dev/null; then
-        # Detect the operating system and install Go based on the OS
-        # You can modify this section with the appropriate package manager commands for your Unix distribution.
-        if [[ "$(uname)" == "Linux" ]]; then
-            if command -v apt-get >/dev/null; then
-                sudo apt-get update
-                sudo apt-get install -y golang
-            elif command -v yum >/dev/null; then
-                sudo yum install -y golang
-            elif command -v dnf >/dev/null; then
-                sudo dnf install -y golang
-            elif command -v pacman >/dev/null; then
-                sudo pacman -S go
-            elif command -v zypper >/dev/null; then
-                sudo zypper install -y go
-            else
-                echo "Package manager not found. Please install Go manually."
-                exit 1
-            fi
-        elif [[ "$(uname)" == "Darwin" ]]; then
-            if command -v brew >/dev/null; then
-                brew install go
-            else
-                echo "Homebrew not found. Please install Go manually."
-                exit 1
-            fi
-        elif [[ "$(uname)" == "FreeBSD" ]]; then
-            sudo pkg install -y go
-        elif [[ "$(uname)" == "OpenBSD" ]]; then
-            doas pkg_add go
-        elif [[ "$(uname)" == "NetBSD" ]]; then
-            pkgin install go
-        else
-            echo "Unsupported operating system. Please install Go manually."
-            exit 1
-        fi
-    fi
-}
-
 compile_go() {
     local file=$1
     local output=$2
@@ -151,9 +70,8 @@ if [ "$1" == "clean" ]; then
     clean
     echo "Successfully removed files"
 else
-    install_go
-    install_pip
-
+    chmod +x install
+    ./install
     sudo pip3 install -r requirements.txt
     gcc src/main.c src/shell/shell.c src/help/help.c src/ascii/ascii.c src/shell/helpers/helpers.c src/shell/command/command.c src/shell/history/history.c src/core-util/core.c -o pegasus
     compile_go "src/tools/port-scanner/portscanner.go" "scanner"
