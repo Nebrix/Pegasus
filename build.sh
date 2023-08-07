@@ -70,7 +70,7 @@ if [ "$1" == "clean" ]; then
     clean
     echo "Successfully removed files"
 else
-    chmod +x install
+    chmod a+x install
     ./install
     sudo pip3 install -r requirements.txt
     gcc src/main.c src/shell/shell.c src/help/help.c src/ascii/ascii.c src/shell/helpers/helpers.c src/shell/command/command.c src/shell/history/history.c src/core-util/core.c -o pegasus
