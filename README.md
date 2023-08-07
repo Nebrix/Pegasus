@@ -30,11 +30,11 @@ To install Pegasus, follow these steps:
 
 3. Make the build script executable:
 
-`chmod +x build.sh`
+`chmod +x build`
 
 4. Run the build script:
 
-`./build.sh`
+`./build`
 
 ## Usage
 
