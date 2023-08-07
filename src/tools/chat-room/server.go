@@ -4,7 +4,6 @@ import (
 	"bufio"
 	"fmt"
 	"net"
-	"os"
 	"strings"
 	"sync"
 )
@@ -75,29 +74,9 @@ func broadcastMessage(message string) {
 		_, err := client.Write([]byte(message + "\n"))
 		if err != nil {
 			fmt.Println("Error broadcasting message:", err)
-		}
-	}
-}
-
-func init() {
-	go readInput()
-}
-
-func readInput() {
-	for {
-		reader := bufio.NewReader(os.Stdin)
-		text, _ := reader.ReadString('\n')
-		text = strings.TrimSpace(text)
-
-		if text == "/exit" {
 			mutex.Lock()
-			for client := range clients {
-				client.Close()
-			}
+			delete(clients, client)
 			mutex.Unlock()
-			os.Exit(0)
-		} else {
-			broadcastMessage("Server: " + text)
 		}
 	}
 }

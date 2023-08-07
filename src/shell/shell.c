@@ -18,24 +18,6 @@
 #define MAX_INPUT_SIZE 1024
 #define MAX_NUM_TOKENS 1024
 
-pid_t startServer() {
-    pid_t pid = fork();
-    if (pid == -1) {
-        perror("fork");
-        exit(EXIT_FAILURE);
-    } else if (pid == 0) {
-        execlp("./server &", "server", NULL);
-    } else {
-        return pid;
-    }
-}
-
-void killServer(pid_t pid) {
-    if (kill(pid, SIGKILL) == -1) {
-        perror("kill");
-    } 
-}
-
 typedef enum {
     CMD_EXIT,
     CMD_RELOAD,
@@ -115,7 +97,6 @@ int shell(void) {
         CommandType commandType = getCommandType(tokens[0]);
         switch (commandType) {
             case CMD_EXIT:
-                addToHistory(input);
                 running = false;
                 break;
 
@@ -243,25 +224,31 @@ int shell(void) {
             case CMD_SERVER:
                 addToHistory(input);
                 if (tokenCount >= 2 && strcmp(tokens[1], "kill") == 0) {
-                    if (server_pid > 0) {
-                        killServer(server_pid);
+                    if (server_pid != -1) {
+                        kill(server_pid, SIGTERM);
+                        printf("Server killed");
                         server_pid = -1;
-                        printf("Server killed.\n");
                     } else {
-                        printf("Server is not running.\n");
+                        printf("Server not running\n");
                     }
                 } else if (tokenCount >= 2 && strcmp(tokens[1], "status") == 0) {
-                    if (server_pid > 0) {
-                        printf("Server is active (PID: %d).\n", server_pid);
+                    if (server_pid != -1) {
+                        printf("Server is running (PID: %d).\n", server_pid);
                     } else {
-                        printf("Server is down.\n");
+                        printf("Server not running.\n");
                     }
                 } else {
-                    if (server_pid > 0) {
-                        printf("Server is already running (PID: %d).\n", server_pid);
+                    if (server_pid != -1) {
+                        printf("Server is already running (PID: %d).\n");
                     } else {
-                        server_pid = startServer();
-                        printf("Server started (PID: %d).\n", server_pid);
+                        server_pid = fork();
+                        if (server_pid == 0) {
+                            system("./server &");
+                        } else if (server_pid > 0) {
+                            printf("Server started (PID: %d).\n", server_pid);
+                        } else {
+                            perror("fork");
+                        }
                     }
                 }
                 break;
