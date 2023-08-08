@@ -5,4 +5,5 @@ void scannerHelp();
 void dnslookupHelp();
 void whoisHelp();
 void dirbHelp();
+void hashHelp();
 void Help();

@@ -4,12 +4,11 @@ command_subnet="python3 -m PyInstaller --onefile src/tools/subnet/subnet.py"
 command_ip="python3 -m PyInstaller --onefile src/tools/ip-lookup/ip.py"
 command_sniffer="python3 -m PyInstaller --onefile src/tools/packet-sniffer/sniffer.py"
 command_hashid="python3 -m PyInstaller --onefile src/tools/hashident/hash.py"
-command_hash="python3 -m PyInstaller --onefile src/tools/hash/genhash.py"
 requirements_file="requirements.txt"
 
 clean() {
     echo "removing..."
-    rm -rf pegasus scanner ping dns subnet dist/ build/ subnet.spec whois dirb ip.spec sniffer.spec hash.spec genhash.spec server nohup.out
+    rm -rf pegasus scanner ping dns subnet dist/ build/ subnet.spec whois dirb ip.spec sniffer.spec hash.spec server nohup.out hash
 }
 
 compile_go() {
@@ -80,13 +79,13 @@ else
     compile_go "src/tools/whois/whois.go" "whois"
     compile_go "src/tools/dirb/dirb.go" "dirb"
     compile_go "src/tools/chat-room/server.go" "server"
+    compile_go "src/tools/hash/genhash.go" "hash"
 
     echo "Compiling Python scripts..."
     compile_python "$command_subnet" "subnet"
     compile_python "$command_ip" "ip"
     compile_python "$command_sniffer" "sniffer"
     compile_python "$command_hashid" "hashident"
-    compile_python "$command_hash" "genhash"
 
     echo "Compilation completed."
     sudo "./pegasus"

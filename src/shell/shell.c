@@ -203,7 +203,16 @@ int shell(void) {
             
             case CMD_HASH:
                 addToHistory(input);
-                system("./dist/genhash");
+                if (tokenCount > 3) {
+                    hashHelp();
+                } else {
+                    char command[MAX_INPUT_SIZE];
+                    snprintf(command, sizeof(command), "./hash %s %s", tokens[1], tokens[2]);
+                    int result = system(command);
+                    if (result == -1) {
+                        perror("system");
+                    }
+                }
                 break;
 
             case CMD_LS:

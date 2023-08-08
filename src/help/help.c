@@ -20,6 +20,9 @@ void whoisHelp() {
 void dirbHelp() {
     puts("Usage: dirb <URL>");
 }
+void hashHelp() {
+    puts("Usage: hash <string> <alg>");
+}
 
 void Help() {
     puts("Port Scanner (scanner): Scan for open ports on a target system.");
