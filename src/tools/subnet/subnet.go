@@ -41,7 +41,6 @@ func subnetCalculator(ipAddress string, cidr int) {
 
 func main() {
 	if len(os.Args) != 3 {
-		fmt.Println("Usage: program-name ip_address cidr")
 		return
 	}
 
