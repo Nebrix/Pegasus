@@ -6,4 +6,5 @@ void dnslookupHelp();
 void whoisHelp();
 void dirbHelp();
 void hashHelp();
+void hashIdentHelp();
 void Help();

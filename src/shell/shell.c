@@ -113,7 +113,16 @@ int shell(void) {
 
             case CMD_IPLOOKUP:
                 addToHistory(input);
-                system("./dist/ip");
+                if (tokenCount > 2) {
+                    return 1;
+                } else {
+                    char command[MAX_INPUT_SIZE];
+                    snprintf(command, sizeof(command), "./ip %s", tokens[1]);
+                    int result = system(command);
+                    if (result == -1) {
+                        perror("system");
+                    }
+                }
                 break;
 
             case CMD_PING:
@@ -160,7 +169,16 @@ int shell(void) {
 
             case CMD_SUBNET:
                 addToHistory(input);
-                system("./dist/subnet");
+                if (tokenCount > 3) {
+                    return 1;
+                } else {
+                    char command[MAX_INPUT_SIZE];
+                    snprintf(command, sizeof(command), "./subnet %s %s", tokens[1], tokens[2]);
+                    int result = system(command);
+                    if (result == -1) {
+                        perror("system");
+                    }
+                }
                 break;
             
             case CMD_WHOIS:
@@ -198,7 +216,16 @@ int shell(void) {
 
             case CMD_HASHIDENT:
                 addToHistory(input);
-                system("./dist/hash");
+                if (tokenCount > 2) {
+                    hashIdentHelp();
+                } else {
+                    char command[MAX_INPUT_SIZE];
+                    snprintf(command, sizeof(command), "./id %s", tokens[1]);
+                    int result = system(command);
+                    if (result == -1) {
+                        perror("system");
+                    }
+                }
                 break;
             
             case CMD_HASH:

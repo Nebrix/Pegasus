@@ -24,6 +24,10 @@ void hashHelp() {
     puts("Usage: hash <string> <alg>");
 }
 
+void hashIdentHelp() {
+    puts("Usage: hashident <string>");
+}
+
 void Help() {
     puts("Port Scanner (scanner): Scan for open ports on a target system.");
     puts("ICMP Ping (ping): Send ICMP echo requests to check if a host is up.");
