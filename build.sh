@@ -85,5 +85,6 @@ else
     compile_python "$command_sniffer" "sniffer"
 
     echo "Compilation completed."
-    sudo "./pegasus"
+    chmod a+x run.sh
+    ./run.sh
 fi

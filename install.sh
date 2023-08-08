@@ -118,3 +118,28 @@ install_perl() {
         fi
     fi
 }
+
+intall_tools() {
+if [ "$(uname)" == "Linux" ]; then
+  distro=$(lsb_release -si)
+  case $distro in
+    "Ubuntu" | "Debian")
+      apt-get install -y perl-Module-CoreList-tools
+      ;;
+    "CentOS" | "RHEL")
+      yum install -y perl-Module-CoreList-tools
+      ;;
+    "Arch")
+      pacman -S perl-Module-CoreList-tools
+      ;;
+    *)
+      echo "Unsupported Linux distro: $distro"
+      exit 1
+      ;;
+  esac
+fi
+}
+
+cpan -i 
+
+cpan JSON
