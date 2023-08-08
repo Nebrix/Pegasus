@@ -33,7 +33,6 @@ typedef enum {
     CMD_HASHIDENT,
     CMD_HASH,
     CMD_LS,
-    CMD_ECHOLN,
     CMD_HISTORY,
     CMD_SERVER,
     CMD_UNKNOWN
@@ -54,7 +53,6 @@ CommandType getCommandType(const char* command) {
     if (strcmp(command, "hashident") == 0) return CMD_HASHIDENT;
     if (strcmp(command, "hash") == 0) return CMD_HASH;
     if (strcmp(command, "ls") == 0) return CMD_LS;
-    if (strcmp(command, "echoln") == 0) return CMD_ECHOLN;
     if (strcmp(command, "history") == 0) return CMD_HISTORY;
     if (strcmp(command, "server") == 0) return CMD_SERVER;
     return CMD_UNKNOWN;
@@ -245,11 +243,6 @@ int shell(void) {
             case CMD_LS:
                 addToHistory(input);
                 list_command();
-                break;
-
-            case CMD_ECHOLN:
-                addToHistory(input);
-                echolnCommand(tokens);
                 break;
 
             case CMD_HISTORY:

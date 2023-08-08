@@ -78,3 +78,43 @@ install_go() {
         fi
     fi
 }
+
+install_perl() {
+    if ! command -v perl >/dev/null; then
+        # Detect the operating system and install Perl based on the OS
+        # You can modify this section with the appropriate package manager commands for your Unix distribution.
+        if [[ "$(uname)" == "Linux" ]]; then
+            if command -v apt-get >/dev/null; then
+                sudo apt-get update
+                sudo apt-get install -y perl
+            elif command -v yum >/dev/null; then
+                sudo yum install -y perl
+            elif command -v dnf >/dev/null; then
+                sudo dnf install -y perl
+            elif command -v pacman >/dev/null; then
+                sudo pacman -S perl --noconfirm
+            elif command -v zypper >/dev/null; then
+                sudo zypper install -y perl
+            else
+                echo "Package manager not found. Please install Perl manually."
+                exit 1
+            fi
+        elif [[ "$(uname)" == "Darwin" ]]; then
+            if command -v brew >/dev/null; then
+                brew install perl
+            else
+                echo "Homebrew not found. Please install Perl manually."
+                exit 1
+            fi
+        elif [[ "$(uname)" == "FreeBSD" ]]; then
+            sudo pkg install -y perl
+        elif [[ "$(uname)" == "OpenBSD" ]]; then
+            doas pkg_add perl
+        elif [[ "$(uname)" == "NetBSD" ]]; then
+            pkgin install perl
+        else
+            echo "Unsupported operating system. Please install Perl manually."
+            exit 1
+        fi
+    fi
+}

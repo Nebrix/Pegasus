@@ -12,22 +12,13 @@
 #define MAX_INPUT_SIZE 1024
 #define MAX_NUM_TOKENS 1024
 
-void echolnCommand(char **tokens) {
-    char command[MAX_INPUT_SIZE];
-    snprintf(command, sizeof(command), "bash scripting/pegasus.sh scripting/echo.pg \"%s\"", tokens[1]);
-    int result = system(command);
-    if (result == -1) {
-        perror("system");
-    }
-}
-
 void handleSignal(int signal) {
     if (signal == SIGINT)
         printf("Shell > ");
 }
 
 char* getPowerlinePrompt() {
-    FILE* powerlineScript = popen("bash scripts/pegasus.sh scripts/powerline/powerline.pg", "r");
+    FILE* powerlineScript = popen("perl src/shell/powerline/main.pl", "r");
     if (powerlineScript == NULL) {
         perror("popen");
         exit(EXIT_FAILURE);
