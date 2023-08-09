@@ -14,6 +14,11 @@ my $config = decode_json($config_json);
 # Get the color codes from the configuration
 my $blue_color = $config->{colorCodes}{blue};
 my $green_color = $config->{colorCodes}{green};
+my $black_color = $config->{colorCodes}{black};
+my $yellow_color = $config->{colorCodes}{yellow};
+my $purple_color = $config->{colorCodes}{purple};
+my $cyan_color = $config->{colorCodes}{cyan};
+my $white_color = $config->{colorCodes}{white};
 
 # Get the current working directory and extract the last component
 my $cwd = getcwd();

@@ -1,6 +1,11 @@
 {
     "colorCodes": {
         "blue": "1;34",
-        "green": "1;32"
+        "green": "1;32",
+        "black": "1;30",
+        "yellow": "1;33",
+        "purple": "1;35",
+        "cyan": "1;36",
+        "white": "1;37"
     }
 }
