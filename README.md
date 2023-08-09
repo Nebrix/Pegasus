@@ -51,17 +51,18 @@ Once Pegasus is successfully installed, you can run it by executing the `pegasus
 
 Pegasus comes with a variety of hacking and security testing tools, including:
 
-- Port Scanner: Scan for open ports on a target system.
-- ICMP Ping: Send ICMP echo requests to check if a host is up.
-- DNS Enumeration: Perform DNS enumeration on a domain to gather information.
-- WHOIS Lookup: Retrieve WHOIS information for a domain.
-- Packet Sniffer: Capture and analyze network packets.
-- Subnet Calculator: Calculate subnet details and IP ranges.
-- IP Lookup: Retrieve IP information for an IP.
-- Hash Ident: Identifies the hash.
-- Hash: Generates hash value. 
-- Server (server): creates a server on localhost that be connected by telnet or ncat.
-- Pegasus edit (edit): run the inline text editor
+- Port Scanner (scanner): Scan for open ports on a target system.
+- ICMP Ping (ping): Send ICMP echo requests to check if a host is up.
+- DNS Enumeration (dnslookup): Perform DNS enumeration on a domain to gather information.
+- WHOIS Lookup (whois): Retrieve WHOIS information for a domain.
+- Packet Sniffer (sniffer): Capture and analyze network packets.
+- Subnet Calculator (subnet): Calculate subnet details and IP ranges.
+- IP Lookup (iplookup): Retrieve basic information about an IP address.
+- Hash Ident (hashident): Identify the type of hash.
+- Hash (hash): Generate a hash value.
+- Server (server): Create a server on localhost that can be connected to using telnet or ncat.
+- Pegasus Edit (edit): Run an inline text editor.
+- Traceroute (traceroute): Trace the route packets take to reach a destination host.
 
 ## Future Updates
 

@@ -36,6 +36,7 @@ typedef enum {
     CMD_HISTORY,
     CMD_SERVER,
     CMD_PEGASUSEDIT,
+    CMD_TRACEROUTE,
     CMD_UNKNOWN
 } CommandType;
 
@@ -57,6 +58,7 @@ CommandType getCommandType(const char* command) {
     if (strcmp(command, "history") == 0) return CMD_HISTORY;
     if (strcmp(command, "server") == 0) return CMD_SERVER;
     if (strcmp(command, "edit") == 0) return CMD_PEGASUSEDIT;
+    if (strcmp(command, "traceroute") == 0) return CMD_TRACEROUTE;
     return CMD_UNKNOWN;
 }
 
@@ -250,6 +252,20 @@ int shell(void) {
             case CMD_HISTORY:
                 addToHistory(input);
                 printHistory();
+                break;
+
+            case CMD_TRACEROUTE:
+                addToHistory(input);
+                if (tokenCount > 2) {
+                    return 1;
+                } else {
+                    char command[MAX_INPUT_SIZE];
+                    snprintf(command, sizeof(command), "./traceroute %s", tokens[1]);
+                    int result = system(command);
+                    if (result == -1) {
+                        perror("system");
+                    }
+                }
                 break;
 
             case CMD_PEGASUSEDIT:

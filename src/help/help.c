@@ -35,9 +35,10 @@ void Help() {
     puts("WHOIS Lookup (whois): Retrieve WHOIS information for a domain.");
     puts("Packet Sniffer (sniffer): Capture and analyze network packets.");
     puts("Subnet Calculator (subnet): Calculate subnet details and IP ranges.");
-    puts("Ip Lookup (iplookup): Gets basic information on the ip.");
-    puts("HashID (hashident): Identifies the hash.");
-    puts("Hash (hash): Generate hash value.");
-    puts("Server (server): creates a server on localhost that be connected by telnet or ncat.");
-    puts("Pegasus edit (edit): run the inline text editor");
+    puts("IP Lookup (iplookup): Retrieve basic information about an IP address.");
+    puts("Hash Ident (hashident): Identify the type of hash.");
+    puts("Hash (hash): Generate a hash value.");
+    puts("Server (server): Create a server on localhost that can be connected to using telnet or ncat.");
+    puts("Pegasus Edit (edit): Run an inline text editor.");
+    puts("Traceroute (traceroute): Trace the route packets take to reach a destination host.");
 }
