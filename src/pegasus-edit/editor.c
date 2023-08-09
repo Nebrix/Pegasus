@@ -1,4 +1,3 @@
-#define PEGASUS_VERSION "2.5.12"
 #ifdef __linux__
 #define _POSIX_C_SOURCE 200809L
 #endif
@@ -31,7 +30,26 @@
 #define HL_MATCH 8      /* Search match. */
 
 #define HL_HIGHLIGHT_STRINGS (1<<0)
-#define HL_HIGHLIGHT_NUMBERS (1<<1)
+#define HL_HIGHLIGHT_NUMBERS (1<<1) 
+
+char *version() {
+    FILE *file = fopen(".version", "r");
+
+    if (file == NULL) {
+        perror("Error");
+        return "Unknown";
+    }
+
+    static char version[20];  // Make it static to ensure it survives function scope
+    if (fscanf(file, "VERSION=%s", version) != 1) {
+        fclose(file);
+        perror("Error reading version");
+        return "Unknown";
+    }
+    fclose(file);
+
+    return version;
+}
 
 struct editorSyntax {
     char **filematch;
@@ -789,7 +807,7 @@ void editorRefreshScreen(void) {
             if (E.numrows == 0 && y == E.screenrows/3) {
                 char welcome[80];
                 int welcomelen = snprintf(welcome,sizeof(welcome),
-                    "Pegasus editor -- verison %s\x1b[0K\r\n", PEGASUS_VERSION);
+                    "Pegasus editor -- verison %s\x1b[0K\r\n", version());
                 int padding = (E.screencols-welcomelen)/2;
                 if (padding) {
                     abAppend(&ab,"~",1);

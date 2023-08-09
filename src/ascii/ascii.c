@@ -4,6 +4,25 @@
 #include <string.h>
 #include "ascii.h"
 
+char *version() {
+    FILE *file = fopen(".version", "r");
+
+    if (file == NULL) {
+        perror("Error");
+        return "Unknown";
+    }
+
+    static char version[20];  // Make it static to ensure it survives function scope
+    if (fscanf(file, "VERSION=%s", version) != 1) {
+        fclose(file);
+        perror("Error reading version");
+        return "Unknown";
+    }
+    fclose(file);
+
+    return version;
+}
+
 void get_distribution_name(char *distro, size_t distro_size) {
     FILE *fp = fopen("/etc/os-release", "r");
     if (fp != NULL) {
@@ -45,7 +64,6 @@ void get_distribution_name(char *distro, size_t distro_size) {
 }
 
 void ascii() {
-    char *version = "2.5.12";
     char *username = getlogin();
 
     char distro[256];
@@ -65,5 +83,5 @@ void ascii() {
     puts("⠀⠀⣰⢏⡵⡄⢲⠶⠦⠴⠤⠦⠶⣶⠤⣀⡀⢧⡀⠉⠘⠚⠓⠂");
     printf("⠀⢸⡏⠃⠀⠙⣞⡆⠀⠀⠀⠀⠀⠀⣵⡚⠱⣎⣇⠀⠀   username: %s\n", username);
     printf("⠀⣿⣷⠄⠀⠀⢹⣽⠀⠀⠀⠀⠀⣼⣳⠃⠀⠹⣾⣤⠀   distro: %s\n", distro);
-    printf("⠀⠉⠁⠀⠀⠰⠿⠟⠀⠀⠀⠀⠘⠛⠛⠀⠀⠀⠹⠋    version: %s\n", version);
+    printf("⠀⠉⠁⠀⠀⠰⠿⠟⠀⠀⠀⠀⠘⠛⠛⠀⠀⠀⠹⠋    version: %s\n", version());
 }
