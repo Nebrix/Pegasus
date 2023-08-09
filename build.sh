@@ -8,6 +8,163 @@ clean() {
     rm -rf pegasus scanner ping dns subnet dist/ build/ whois dirb sniffer.spec server nohup.out hash id ip pegasusedit
 }
 
+install_pip() {
+    if ! command -v pip3 >/dev/null; then
+        echo "Installing pip..."
+        # Detect the operating system and install pip based on the OS
+        # You can modify this section with the appropriate package manager commands for your Unix distribution.
+        if [[ "$(uname)" == "Linux" ]]; then
+            if command -v apt-get >/dev/null; then
+                sudo apt-get update
+                sudo apt-get install -y python3-pip
+            elif command -v yum >/dev/null; then
+                sudo yum install -y python3-pip
+            elif command -v dnf >/dev/null; then
+                sudo dnf install -y python3-pip
+            elif command -v pacman >/dev/null; then
+                sudo pacman -S python-pip
+            elif command -v zypper >/dev/null; then
+                sudo zypper install -y python3-pip
+            else
+                echo "Package manager not found. Please install pip manually."
+                exit 1
+            fi
+        elif [[ "$(uname)" == "Darwin" ]]; then
+            if command -v brew >/dev/null; then
+                brew install python
+            else
+                echo "Homebrew not found. Please install pip manually."
+                exit 1
+            fi
+        elif [[ "$(uname)" == "FreeBSD" ]]; then
+            sudo pkg install -y py38-pip
+        elif [[ "$(uname)" == "OpenBSD" ]]; then
+            doas pkg_add py3-pip
+        elif [[ "$(uname)" == "NetBSD" ]]; then
+            pkgin install py39-pip
+        else
+            echo "Unsupported operating system. Please install pip manually."
+            exit 1
+        fi
+    fi
+}
+
+install_go() {
+    if ! command -v go >/dev/null; then
+        # Detect the operating system and install Go based on the OS
+        # You can modify this section with the appropriate package manager commands for your Unix distribution.
+        if [[ "$(uname)" == "Linux" ]]; then
+            if command -v apt-get >/dev/null; then
+                sudo apt-get update
+                sudo apt-get install -y golang
+            elif command -v yum >/dev/null; then
+                sudo yum install -y golang
+            elif command -v dnf >/dev/null; then
+                sudo dnf install -y golang
+            elif command -v pacman >/dev/null; then
+                sudo pacman -S go
+            elif command -v zypper >/dev/null; then
+                sudo zypper install -y go
+            else
+                echo "Package manager not found. Please install Go manually."
+                exit 1
+            fi
+        elif [[ "$(uname)" == "Darwin" ]]; then
+            if command -v brew >/dev/null; then
+                brew install go
+            else
+                echo "Homebrew not found. Please install Go manually."
+                exit 1
+            fi
+        elif [[ "$(uname)" == "FreeBSD" ]]; then
+            sudo pkg install -y go
+        elif [[ "$(uname)" == "OpenBSD" ]]; then
+            doas pkg_add go
+        elif [[ "$(uname)" == "NetBSD" ]]; then
+            pkgin install go
+        else
+            echo "Unsupported operating system. Please install Go manually."
+            exit 1
+        fi
+    fi
+}
+
+install_perl() {
+    if ! command -v perl >/dev/null; then
+        # Detect the operating system and install Perl based on the OS
+        # You can modify this section with the appropriate package manager commands for your Unix distribution.
+        if [[ "$(uname)" == "Linux" ]]; then
+            if command -v apt-get >/dev/null; then
+                sudo apt-get update
+                sudo apt-get install -y perl
+            elif command -v yum >/dev/null; then
+                sudo yum install -y perl
+            elif command -v dnf >/dev/null; then
+                sudo dnf install -y perl
+            elif command -v pacman >/dev/null; then
+                sudo pacman -S perl --noconfirm
+            elif command -v zypper >/dev/null; then
+                sudo zypper install -y perl
+            else
+                echo "Package manager not found. Please install Perl manually."
+                exit 1
+            fi
+        elif [[ "$(uname)" == "Darwin" ]]; then
+            if command -v brew >/dev/null; then
+                brew install perl
+            else
+                echo "Homebrew not found. Please install Perl manually."
+                exit 1
+            fi
+        elif [[ "$(uname)" == "FreeBSD" ]]; then
+            sudo pkg install -y perl
+        elif [[ "$(uname)" == "OpenBSD" ]]; then
+            doas pkg_add perl
+        elif [[ "$(uname)" == "NetBSD" ]]; then
+            pkgin install perl
+        else
+            echo "Unsupported operating system. Please install Perl manually."
+            exit 1
+        fi
+    fi
+}
+
+install_tools() {
+    if [[ "$(uname)" == "Linux" ]]; then
+        if command -v apt-get >/dev/null; then
+            sudo apt-get update
+            sudo apt-get install -y perl-Module-CoreList-tools
+        elif command -v yum >/dev/null; then
+            sudo yum install -y perl-Module-CoreList-tools
+        elif command -v dnf >/dev/null; then
+            sudo dnf install -y perl-Module-CoreList-tools
+        elif command -v pacman >/dev/null; then
+            sudo pacman -S perl-Module-CoreList-tools --noconfirm
+        elif command -v zypper >/dev/null; then
+            sudo zypper install -y perl-Module-CoreList-tools
+        else
+            echo "Package manager not found. Please install perl-Module-CoreList-tools manually."
+            exit 1
+        fi
+    elif [[ "$(uname)" == "Darwin" ]]; then
+        if command -v brew >/dev/null; then
+            brew install perl-Module-CoreList-tools
+        else
+            echo "Homebrew not found. Please install perl-Module-CoreList-tools manually."
+            exit 1
+        fi
+    elif [[ "$(uname)" == "FreeBSD" ]]; then
+        sudo pkg install -y perl-Module-CoreList-tools
+    elif [[ "$(uname)" == "OpenBSD" ]]; then
+        doas pkg_add perl-Module-CoreList-tools
+    elif [[ "$(uname)" == "NetBSD" ]]; then
+        pkgin install perl-Module-CoreList-tools
+    else
+        echo "Unsupported operating system. Please install perl-Module-CoreList-tools manually."
+        exit 1
+    fi
+}
+
 compile_go() {
     local file=$1
     local output=$2
@@ -66,8 +223,14 @@ if [ "$1" == "clean" ]; then
     clean
     echo "Successfully removed files"
 else
-    chmod a+x install.sh
-    ./install.sh
+    install_tools
+    install_go
+    install_perl
+    install_pip
+    cpan -i 
+    cpan JSON
+    #chmod a+x install.sh
+    #./install.sh
     sudo pip3 install -r requirements.txt
     gcc src/main.c src/shell/shell.c src/help/help.c src/ascii/ascii.c src/shell/helpers/helpers.c src/shell/command/command.c src/shell/history/history.c src/core-util/core.c -o pegasus
     gcc -o pegasusedit src/pegasus-edit/editor.c -Wall -W -pedantic -std=c99
@@ -86,6 +249,5 @@ else
     compile_python "$command_sniffer" "sniffer"
 
     echo "Compilation completed."
-    chmod a+x run.sh
-    ./run.sh
+    ./pegasus
 fi
