@@ -39,4 +39,5 @@ void Help() {
     puts("HashID (hashident): Identifies the hash.");
     puts("Hash (hash): Generate hash value.");
     puts("Server (server): creates a server on localhost that be connected by telnet or ncat.");
+    puts("Pegasus edit (edit): run the inline text editor");
 }
