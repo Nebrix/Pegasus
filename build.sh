@@ -227,8 +227,8 @@ else
     install_go
     install_perl
     install_pip
-    cpan -i 
-    cpan JSON
+    sudo cpan -i 
+    sudo cpan JSON
     #chmod a+x install.sh
     #./install.sh
     sudo pip3 install -r requirements.txt
