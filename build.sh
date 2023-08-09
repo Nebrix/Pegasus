@@ -5,7 +5,7 @@ requirements_file="requirements.txt"
 
 clean() {
     echo "removing..."
-    rm -rf pegasus scanner ping dns subnet dist/ build/ whois dirb sniffer.spec server nohup.out hash id ip pegasusedit
+    rm -rf pegasus scanner ping dns subnet dist/ build/ whois dirb sniffer.spec server nohup.out hash id ip pegasusedit traceroute
 }
 
 install_pip() {
@@ -250,5 +250,5 @@ else
     compile_python "$command_sniffer" "sniffer"
 
     echo "Compilation completed."
-    ./pegasus
+    sudo ./pegasus
 fi
