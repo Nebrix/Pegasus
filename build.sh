@@ -5,7 +5,7 @@ requirements_file="requirements.txt"
 
 clean() {
     echo "removing..."
-    rm -rf pegasus scanner ping dns subnet dist/ build/ whois dirb sniffer.spec server nohup.out hash id ip pegasusedit traceroute
+    rm -rf pegasus scanner ping dns subnet dist/ build/ whois dirb sniffer.spec server nohup.out hash id ip pegasusedit traceroute revshell webserver
 }
 
 install_pip() {
@@ -245,6 +245,8 @@ else
     compile_go "src/tools/hash/id.go" "id"
     compile_go "src/tools/subnet/subnet.go" "subnet"
     compile_go "src/tools/ip-lookup/ip.go" "ip"
+    compile_go "src/tools/web-server/web.go" "webserver"
+    compile_go "src/tools/rev-shell/revshell.go" "revshell"
 
     echo "Compiling Python scripts..."
     compile_python "$command_sniffer" "sniffer"

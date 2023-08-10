@@ -63,6 +63,8 @@ Pegasus comes with a variety of hacking and security testing tools, including:
 - Server (server): Create a server on localhost that can be connected to using telnet or ncat.
 - Pegasus Edit (edit): Run an inline text editor.
 - Traceroute (traceroute): Trace the route packets take to reach a destination host.
+- Web Server (webserver): Run a simple web server for quick file sharing or testing purposes.
+- Reverse Shell (revshell): Create a reverse shell listener to establish a network connection to a remote system.
 
 ## Future Updates
 

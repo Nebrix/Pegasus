@@ -41,4 +41,6 @@ void Help() {
     puts("Server (server): Create a server on localhost that can be connected to using telnet or ncat.");
     puts("Pegasus Edit (edit): Run an inline text editor.");
     puts("Traceroute (traceroute): Trace the route packets take to reach a destination host.");
+    puts("Web Server (webserver): Run a simple web server for quick file sharing or testing purposes.");
+    puts("Reverse Shell (revshell): Create a reverse shell listener to establish a network connection to a remote system.");
 }

@@ -37,6 +37,8 @@ typedef enum {
     CMD_SERVER,
     CMD_PEGASUSEDIT,
     CMD_TRACEROUTE,
+    CMD_WEBSERVER,
+    CMD_REVSHELL,
     CMD_UNKNOWN
 } CommandType;
 
@@ -59,6 +61,8 @@ CommandType getCommandType(const char* command) {
     if (strcmp(command, "server") == 0) return CMD_SERVER;
     if (strcmp(command, "edit") == 0) return CMD_PEGASUSEDIT;
     if (strcmp(command, "traceroute") == 0) return CMD_TRACEROUTE;
+    if (strcmp(command, "webserver") == 0) return CMD_WEBSERVER;
+    if (strcmp(command, "revshell") == 0) return CMD_REVSHELL;
     return CMD_UNKNOWN;
 }
 
@@ -252,6 +256,70 @@ int shell(void) {
             case CMD_HISTORY:
                 addToHistory(input);
                 printHistory();
+                break;
+
+            case CMD_REVSHELL:
+                addToHistory(input);
+                if (tokenCount >= 2 && strcmp(tokens[1], "kill") == 0) {
+                    if (server_pid != -1) {
+                        kill(server_pid, SIGTERM);
+                        printf("Server killed");
+                        server_pid = -1;
+                    } else {
+                        printf("Server not running\n");
+                    }
+                } else if (tokenCount >= 2 && strcmp(tokens[1], "status") == 0) {
+                    if (server_pid != -1) {
+                        printf("Server is running (PID: %d).\n", server_pid);
+                    } else {
+                        printf("Server not running.\n");
+                    }
+                } else {
+                    if (server_pid != -1) {
+                        printf("Server is already running (PID: %d).\n");
+                    } else {
+                        server_pid = fork();
+                        if (server_pid == 0) {
+                            system("./revshell &");
+                        } else if (server_pid > 0) {
+                            printf("Server started (PID: %d).\n", server_pid);
+                        } else {
+                            perror("fork");
+                        }
+                    }
+                }
+                break;
+
+            case CMD_WEBSERVER:
+                addToHistory(input);
+                if (tokenCount >= 2 && strcmp(tokens[1], "kill") == 0) {
+                    if (server_pid != -1) {
+                        kill(server_pid, SIGTERM);
+                        printf("Server killed");
+                        server_pid = -1;
+                    } else {
+                        printf("Server not running\n");
+                    }
+                } else if (tokenCount >= 2 && strcmp(tokens[1], "status") == 0) {
+                    if (server_pid != -1) {
+                        printf("Server is running (PID: %d).\n", server_pid);
+                    } else {
+                        printf("Server not running.\n");
+                    }
+                } else {
+                    if (server_pid != -1) {
+                        printf("Server is already running (PID: %d).\n");
+                    } else {
+                        server_pid = fork();
+                        if (server_pid == 0) {
+                            system("./webserver &");
+                        } else if (server_pid > 0) {
+                            printf("Server started (PID: %d).\n", server_pid);
+                        } else {
+                            perror("fork");
+                        }
+                    }
+                }
                 break;
 
             case CMD_TRACEROUTE:
