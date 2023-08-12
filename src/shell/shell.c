@@ -69,6 +69,7 @@ CommandType getCommandType(const char* command) {
 int shell(void) {
     char input[MAX_INPUT_SIZE];
     char *tokens[MAX_NUM_TOKENS];
+    bool background = false;
     bool running = true;
     pid_t server_pid = -1;
 
@@ -383,37 +384,6 @@ int shell(void) {
                 break;
 
             case CMD_UNKNOWN:
-                bool background = false;
-
-                char *last_token = tokens[tokenCount - 1];
-                if (strcmp(last_token, "&") == 0) {
-                    background = true;
-                    *last_token = '\0';
-                }
-
-                int fd_in = 0, fd_out = 1;
-                for (int i = 0; tokens[i] != NULL; i++) {
-                    if (strcmp(tokens[i], "<") == 0) {
-                        tokens[i] = NULL;
-                        fd_in = open(tokens[i + 3], O_RDONLY);
-                        if (fd_in == -1) {
-                            perror("open");
-                            break;
-                        }
-                        dup2(fd_in, STDIN_FILENO);
-                        close(fd_in);
-                    } else if (strcmp(tokens[i], ">") == 0) {
-                        tokens[i] = NULL;
-                        fd_out = open(tokens[i + 1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
-                        if (fd_out == -1) {
-                            perror("open");
-                            break;
-                        }
-                        dup2(fd_out, STDOUT_FILENO);
-                        close(fd_out);
-                    }
-                }
-                addToHistory(input);
                 executeCommand(tokens, background);
                 break;
         }
