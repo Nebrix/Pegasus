@@ -110,7 +110,7 @@ install_tools() {
             exit 1
         fi
     elif [[ "$(uname)" == "FreeBSD" ]]; then
-        sudo pkg install -y perl-Module-CoreList-tools
+        sudo pkg install -y p5-Module-CoreList
     elif [[ "$(uname)" == "OpenBSD" ]]; then
         doas pkg_add perl-Module-CoreList-tools
     elif [[ "$(uname)" == "NetBSD" ]]; then
@@ -167,10 +167,10 @@ else
     sudo cpan JSON
     #chmod a+x install.sh
     #./install.sh
-    gcc src/main.c src/shell/shell.c src/help/help.c src/ascii/ascii.c src/shell/helpers/helpers.c src/shell/command/command.c src/shell/history/history.c src/core-util/core.c -o pegasus
-    gcc -o pegasusedit src/pegasus-edit/editor.c -Wall -W -pedantic -std=c99
-    gcc -o traceroute src/tools/traceroute/route.c
-    gcc -o sniffer src/tools/packet-sniffer/sniffer.c -lpcap
+    cc src/main.c src/shell/shell.c src/help/help.c src/ascii/ascii.c src/shell/helpers/helpers.c src/shell/command/command.c src/shell/history/history.c src/core-util/core.c -o pegasus
+    cc -o pegasusedit src/pegasus-edit/editor.c -Wall -W -pedantic -std=c99
+    cc -o traceroute src/tools/traceroute/route.c
+    cc -o sniffer src/tools/packet-sniffer/sniffer.c -lpcap
     compile_go "src/tools/port-scanner/portscanner.go" "scanner"
     compile_go "src/tools/ping/icmp.go" "ping"
     compile_go "src/tools/dns/dns.go" "dns"
