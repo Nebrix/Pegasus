@@ -165,8 +165,6 @@ else
     install_perl
     sudo cpan -i 
     sudo cpan JSON
-    #chmod a+x install.sh
-    #./install.sh
     cc src/main.c src/shell/shell.c src/help/help.c src/ascii/ascii.c src/shell/helpers/helpers.c src/shell/command/command.c src/shell/history/history.c src/core-util/core.c -o pegasus
     cc -o pegasusedit src/pegasus-edit/editor.c -Wall -W -pedantic -std=c99
     cc -o traceroute src/tools/traceroute/route.c
