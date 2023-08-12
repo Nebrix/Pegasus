@@ -217,7 +217,7 @@ int shell(void) {
 
             case CMD_SNIFFER:
                 addToHistory(input);
-                system("./dist/sniffer");
+                system("./sniffer");
                 break;
 
             case CMD_HASHIDENT:

@@ -1,52 +1,8 @@
 #!/bin/bash
 
-command_sniffer="python3 -m PyInstaller --onefile src/tools/packet-sniffer/sniffer.py"
-requirements_file="requirements.txt"
-
 clean() {
     echo "removing..."
-    rm -rf pegasus scanner ping dns subnet dist/ build/ whois dirb sniffer.spec server nohup.out hash id ip pegasusedit traceroute revshell webserver
-}
-
-install_pip() {
-    if ! command -v pip3 >/dev/null; then
-        echo "Installing pip..."
-        # Detect the operating system and install pip based on the OS
-        # You can modify this section with the appropriate package manager commands for your Unix distribution.
-        if [[ "$(uname)" == "Linux" ]]; then
-            if command -v apt-get >/dev/null; then
-                sudo apt-get update
-                sudo apt-get install -y python3-pip
-            elif command -v yum >/dev/null; then
-                sudo yum install -y python3-pip
-            elif command -v dnf >/dev/null; then
-                sudo dnf install -y python3-pip
-            elif command -v pacman >/dev/null; then
-                sudo pacman -S python-pip
-            elif command -v zypper >/dev/null; then
-                sudo zypper install -y python3-pip
-            else
-                echo "Package manager not found. Please install pip manually."
-                exit 1
-            fi
-        elif [[ "$(uname)" == "Darwin" ]]; then
-            if command -v brew >/dev/null; then
-                brew install python
-            else
-                echo "Homebrew not found. Please install pip manually."
-                exit 1
-            fi
-        elif [[ "$(uname)" == "FreeBSD" ]]; then
-            sudo pkg install -y py38-pip
-        elif [[ "$(uname)" == "OpenBSD" ]]; then
-            doas pkg_add py3-pip
-        elif [[ "$(uname)" == "NetBSD" ]]; then
-            pkgin install py39-pip
-        else
-            echo "Unsupported operating system. Please install pip manually."
-            exit 1
-        fi
-    fi
+    rm -rf pegasus scanner ping dns subnet whois dirb sniffer server nohup.out hash id ip pegasusedit traceroute revshell webserver
 }
 
 install_go() {
@@ -182,25 +138,6 @@ compile_go() {
     echo ""  # Move to the next line after the progress bar
 }
 
-compile_python() {
-    local command=$1
-    local task=$2
-
-    # Start the Python build command in the background
-    $command >/dev/null 2>&1 &
-    local command_pid=$!
-
-    # Display the progress bar until the command finishes
-    while ps -p $command_pid >/dev/null; do
-        print_progress_bar $(ps -o etimes= -p $command_pid) 60 "Compiling $task:" "Pegasus" 0 30 "█"
-        sleep 1
-    done
-
-    # Print the final progress bar at 100%
-    print_progress_bar 60 60 "Compiling $task:" "Complete" 0 30 "█"
-    echo ""  # Move to the next line after the progress bar
-}
-
 print_progress_bar() {
     local iteration=$1
     local total=$2
@@ -226,15 +163,14 @@ else
     install_tools
     install_go
     install_perl
-    install_pip
     sudo cpan -i 
     sudo cpan JSON
     #chmod a+x install.sh
     #./install.sh
-    sudo pip3 install -r requirements.txt
     gcc src/main.c src/shell/shell.c src/help/help.c src/ascii/ascii.c src/shell/helpers/helpers.c src/shell/command/command.c src/shell/history/history.c src/core-util/core.c -o pegasus
     gcc -o pegasusedit src/pegasus-edit/editor.c -Wall -W -pedantic -std=c99
     gcc -o traceroute src/tools/traceroute/route.c
+    gcc -o sniffer src/tools/packet-sniffer/sniffer.c -lpcap
     compile_go "src/tools/port-scanner/portscanner.go" "scanner"
     compile_go "src/tools/ping/icmp.go" "ping"
     compile_go "src/tools/dns/dns.go" "dns"
@@ -247,9 +183,6 @@ else
     compile_go "src/tools/ip-lookup/ip.go" "ip"
     compile_go "src/tools/web-server/web.go" "webserver"
     compile_go "src/tools/rev-shell/revshell.go" "revshell"
-
-    echo "Compiling Python scripts..."
-    compile_python "$command_sniffer" "sniffer"
 
     echo "Compilation completed."
     sudo ./pegasus
