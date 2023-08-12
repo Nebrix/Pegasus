@@ -124,7 +124,7 @@ int shell(void) {
                     return 1;
                 } else {
                     char command[MAX_INPUT_SIZE];
-                    snprintf(command, sizeof(command), "./ip %s", tokens[1]);
+                    snprintf(command, sizeof(command), "./dist/ip %s", tokens[1]);
                     int result = system(command);
                     if (result == -1) {
                         perror("system");
@@ -138,7 +138,7 @@ int shell(void) {
                     pingHelp();
                 } else {
                     char command[MAX_INPUT_SIZE];
-                    snprintf(command, sizeof(command), "./ping %s", tokens[1]);
+                    snprintf(command, sizeof(command), "./dist/ping %s", tokens[1]);
                     int result = system(command);
                     if (result == -1) {
                         perror("system");
@@ -152,7 +152,7 @@ int shell(void) {
                     scannerHelp();
                 } else {
                     char command[MAX_INPUT_SIZE];
-                    snprintf(command, sizeof(command), "./scanner %s %d %d", tokens[1], tokens[2], tokens[3]);
+                    snprintf(command, sizeof(command), "./dist/scanner %s %d %d", tokens[1], tokens[2], tokens[3]);
                     int result = system(command);
                     if (result == -1) {
                         perror("system");
@@ -166,7 +166,7 @@ int shell(void) {
                     dnslookupHelp();
                 } else {
                     char command[MAX_INPUT_SIZE];
-                    snprintf(command, sizeof(command), "./dns %s", tokens[1]);
+                    snprintf(command, sizeof(command), "./dist/dns %s", tokens[1]);
                     int result = system(command);
                     if (result == -1) {
                         perror("system");
@@ -180,7 +180,7 @@ int shell(void) {
                     return 1;
                 } else {
                     char command[MAX_INPUT_SIZE];
-                    snprintf(command, sizeof(command), "./subnet %s %s", tokens[1], tokens[2]);
+                    snprintf(command, sizeof(command), "./dist/subnet %s %s", tokens[1], tokens[2]);
                     int result = system(command);
                     if (result == -1) {
                         perror("system");
@@ -194,7 +194,7 @@ int shell(void) {
                     whoisHelp();
                 } else {
                     char command[MAX_INPUT_SIZE];
-                    snprintf(command, sizeof(command), "./whois %s", tokens[1]);
+                    snprintf(command, sizeof(command), "./dist/whois %s", tokens[1]);
                     int result = system(command);
                     if (result == -1) {
                         perror("system");
@@ -208,7 +208,7 @@ int shell(void) {
                     dirbHelp();
                 } else {
                     char command[MAX_INPUT_SIZE];
-                    snprintf(command, sizeof(command), "./dirb %s", tokens[1]);
+                    snprintf(command, sizeof(command), "./dist/dirb %s", tokens[1]);
                     int result = system(command);
                     if (result == -1) {
                         perror("system");
@@ -227,7 +227,7 @@ int shell(void) {
                     hashIdentHelp();
                 } else {
                     char command[MAX_INPUT_SIZE];
-                    snprintf(command, sizeof(command), "./id %s", tokens[1]);
+                    snprintf(command, sizeof(command), "./dist/id %s", tokens[1]);
                     int result = system(command);
                     if (result == -1) {
                         perror("system");
@@ -241,7 +241,7 @@ int shell(void) {
                     hashHelp();
                 } else {
                     char command[MAX_INPUT_SIZE];
-                    snprintf(command, sizeof(command), "./hash %s %s", tokens[1], tokens[2]);
+                    snprintf(command, sizeof(command), "./dist/hash %s %s", tokens[1], tokens[2]);
                     int result = system(command);
                     if (result == -1) {
                         perror("system");
@@ -281,7 +281,7 @@ int shell(void) {
                     } else {
                         server_pid = fork();
                         if (server_pid == 0) {
-                            system("./revshell &");
+                            system("./dist/revshell &");
                         } else if (server_pid > 0) {
                             printf("Server started (PID: %d).\n", server_pid);
                         } else {
@@ -313,7 +313,7 @@ int shell(void) {
                     } else {
                         server_pid = fork();
                         if (server_pid == 0) {
-                            system("./webserver &");
+                            system("./dist/webserver &");
                         } else if (server_pid > 0) {
                             printf("Server started (PID: %d).\n", server_pid);
                         } else {
@@ -329,7 +329,7 @@ int shell(void) {
                     return 1;
                 } else {
                     char command[MAX_INPUT_SIZE];
-                    snprintf(command, sizeof(command), "./traceroute %s", tokens[1]);
+                    snprintf(command, sizeof(command), "./dist/traceroute %s", tokens[1]);
                     int result = system(command);
                     if (result == -1) {
                         perror("system");
@@ -343,7 +343,7 @@ int shell(void) {
                     return 1;
                 } else {
                     char command[MAX_INPUT_SIZE];
-                    snprintf(command, sizeof(command), "./pegasusedit %s", tokens[1]);
+                    snprintf(command, sizeof(command), "./dist/pegasusedit %s", tokens[1]);
                     int result = system(command);
                     if (result == -1) {
                         perror("system");
@@ -373,7 +373,7 @@ int shell(void) {
                     } else {
                         server_pid = fork();
                         if (server_pid == 0) {
-                            system("./server &");
+                            system("./dist/server &");
                         } else if (server_pid > 0) {
                             printf("Server started (PID: %d).\n", server_pid);
                         } else {

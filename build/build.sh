@@ -2,14 +2,14 @@
 
 clean() {
     echo "removing..."
-    rm -rf pegasus scanner ping dns subnet whois dirb sniffer server nohup.out hash id ip pegasusedit traceroute revshell webserver
+    rm -rf dist/
 }
 
 compile_go() {
     local file=$1
     local output=$2
 
-    go build -o $output $file >/dev/null 2>&1 &
+    go build -o dist/$output $file >/dev/null 2>&1 &
     local command_pid=$!
 
     while ps -p $command_pid >/dev/null; do
@@ -44,13 +44,14 @@ if [ "$1" == "clean" ]; then
     clean
     echo "Successfully removed files"
 else
-    cc src/main.c src/shell/shell.c src/help/help.c src/ascii/ascii.c src/shell/helpers/helpers.c src/shell/command/command.c src/shell/history/history.c src/core-util/core.c -o pegasus
-    cc -o pegasusedit src/pegasus-edit/editor.c -Wall -W -pedantic -std=c99
-    cc -o traceroute src/tools/traceroute/route.c
-    cc -o sniffer src/tools/packet-sniffer/sniffer.c -lpcap
-    compile_go "src/tools/port-scanner/portscanner.go" "scanner"
-    compile_go "src/tools/ping/icmp.go" "ping"
-    compile_go "src/tools/dns/dns.go" "dns"
+    mkdir dist/
+    cc src/main.c src/shell/shell.c src/help/help.c src/ascii/ascii.c src/shell/helpers/helpers.c src/shell/command/command.c src/shell/history/history.c src/core-util/core.c -o dist/pegasus
+    cc src/pegasus-edit/editor.c -Wall -W -pedantic -std=c99 -o dist/pegasusedit
+    cc src/tools/traceroute/route.c -o dist/traceroute
+    cc src/tools/packet-sniffer/sniffer.c -lpcap -o dist/sniffer
+    compile_go "src/tools/port-scanner/portscanner.go" "scanner" 
+    compile_go "src/tools/ping/icmp.go" "ping" > dist/
+    compile_go "src/tools/dns/dns.go" "dns" 
     compile_go "src/tools/whois/whois.go" "whois"
     compile_go "src/tools/dirb/dirb.go" "dirb"
     compile_go "src/tools/chat-room/server.go" "server"
@@ -62,5 +63,5 @@ else
     compile_go "src/tools/rev-shell/revshell.go" "revshell"
 
     echo "Compilation completed."
-    sudo ./pegasus
+    sudo ./dist/pegasus
 fi
