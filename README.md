@@ -33,13 +33,15 @@ To install Pegasus, follow these steps:
 
 `cd Pegasus`
 
-3. Make the build script executable:
+3. Make the build & install script executable:
 
-`chmod a+x build.sh`
+`chmod a+x build/build.sh`
+`chmod a+x build/install`
 
-4. Run the build script:
+4. Run the build & install script:
 
-`./build.sh`
+`./build/install`
+`./build/build.sh`
 
 ## Usage
 
