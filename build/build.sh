@@ -48,6 +48,7 @@ else
     cc src/main.c src/shell/shell.c src/help/help.c src/ascii/ascii.c src/shell/helpers/helpers.c src/shell/command/command.c src/shell/history/history.c src/core-util/core.c -o dist/pegasus
     cc src/pegasus-edit/editor.c -Wall -W -pedantic -std=c99 -o dist/pegasusedit
     cc src/tools/traceroute/route.c -o dist/traceroute
+    g++ src/tools/getIP/getIP.cc -o dist/getIP
     cc src/tools/packet-sniffer/sniffer.c -lpcap -o dist/sniffer
     compile_go "src/tools/port-scanner/portscanner.go" "scanner" 
     compile_go "src/tools/ping/icmp.go" "ping" > dist/

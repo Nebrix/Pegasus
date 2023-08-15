@@ -39,6 +39,7 @@ typedef enum {
     CMD_TRACEROUTE,
     CMD_WEBSERVER,
     CMD_REVSHELL,
+    CMD_GETIP,
     CMD_UNKNOWN
 } CommandType;
 
@@ -63,6 +64,7 @@ CommandType getCommandType(const char* command) {
     if (strcmp(command, "traceroute") == 0) return CMD_TRACEROUTE;
     if (strcmp(command, "webserver") == 0) return CMD_WEBSERVER;
     if (strcmp(command, "revshell") == 0) return CMD_REVSHELL;
+    if (strcmp(command, "getip") == 0) return CMD_GETIP;
     return CMD_UNKNOWN;
 }
 
@@ -381,6 +383,10 @@ int shell(void) {
                         }
                     }
                 }
+                break;
+
+            case CMD_GETIP:
+                system("./dist/getIP");
                 break;
 
             case CMD_UNKNOWN:
