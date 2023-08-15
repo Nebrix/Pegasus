@@ -67,6 +67,7 @@ Pegasus comes with a variety of hacking and security testing tools, including:
 - Traceroute (traceroute): Trace the route packets take to reach a destination host.
 - Web Server (webserver): Run a simple web server for quick file sharing or testing purposes.
 - Reverse Shell (revshell): Create a reverse shell listener to establish a network connection to a remote system.
+- Get Ip (getip): gets local and public IP address for currently connected network.
 
 ## Future Updates
 
