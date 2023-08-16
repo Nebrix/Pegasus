@@ -44,4 +44,5 @@ void Help() {
     puts("Web Server (webserver): Run a simple web server for quick file sharing or testing purposes.");
     puts("Reverse Shell (revshell): Create a reverse shell listener to establish a network connection to a remote system.");
     puts("Get Ip (getip): gets local and public IP address for currently connected network.");
+    puts("MAC Address Spoofing (macspoof): Change the MAC address of a network interface to bypass network restrictions or enhance privacy.");
 }

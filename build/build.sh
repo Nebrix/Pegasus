@@ -49,6 +49,7 @@ else
     cc src/pegasus-edit/editor.c -Wall -W -pedantic -std=c99 -o dist/pegasusedit
     cc src/tools/traceroute/route.c -o dist/traceroute
     g++ src/tools/getIP/getIP.cc -o dist/getIP
+    g++ src/tools/mac-spoof/mac.cc -o dist/mac
     cc src/tools/packet-sniffer/sniffer.c -lpcap -o dist/sniffer
     compile_go "src/tools/port-scanner/portscanner.go" "scanner" 
     compile_go "src/tools/ping/icmp.go" "ping" > dist/

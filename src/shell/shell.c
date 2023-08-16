@@ -40,6 +40,7 @@ typedef enum {
     CMD_WEBSERVER,
     CMD_REVSHELL,
     CMD_GETIP,
+    CMD_MACSPOOF,
     CMD_UNKNOWN
 } CommandType;
 
@@ -65,6 +66,7 @@ CommandType getCommandType(const char* command) {
     if (strcmp(command, "webserver") == 0) return CMD_WEBSERVER;
     if (strcmp(command, "revshell") == 0) return CMD_REVSHELL;
     if (strcmp(command, "getip") == 0) return CMD_GETIP;
+    if (strcmp(command, "macspoof") == 0) return CMD_MACSPOOF;
     return CMD_UNKNOWN;
 }
 
@@ -387,6 +389,10 @@ int shell(void) {
 
             case CMD_GETIP:
                 system("./dist/getIP");
+                break;
+
+            case CMD_MACSPOOF:
+                system("./dist/mac");
                 break;
 
             case CMD_UNKNOWN:

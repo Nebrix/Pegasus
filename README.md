@@ -68,6 +68,7 @@ Pegasus comes with a variety of hacking and security testing tools, including:
 - Web Server (webserver): Run a simple web server for quick file sharing or testing purposes.
 - Reverse Shell (revshell): Create a reverse shell listener to establish a network connection to a remote system.
 - Get Ip (getip): gets local and public IP address for currently connected network.
+- MAC Address Spoofing (macspoof): Change the MAC address of a network interface to bypass network restrictions or enhance privacy.
 
 ## Future Updates
 
