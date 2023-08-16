@@ -9,14 +9,14 @@
 #include <net/if.h>
 
 void disableNetwork(char *netInterface) {
-    const char command[100];
+    char command[100];
     sprintf(command, "sudo ifconfig %s down", netInterface);
 
     int result = system(command);
 }
 
 void upNetwork(char *netInterface) {
-    const char command[100];
+    char command[100];
     sprintf(command, "sudo ifconfig %s up", netInterface);
 
     int result = system(command);
