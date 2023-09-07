@@ -156,7 +156,7 @@ int shell(void) {
                     return 1;
                 } else {
                    char command[MAX_INPUT_SIZE];
-                   snprintf(command, sizeof(command), "dotnet run --project src/tools/PScan/PScan/PScan.csproj %s", tokens[1]);
+                   snprintf(command, sizeof(command), "dotnet run --project src/tools/PScan/PScan.csproj %s", tokens[1]);
                    int result = system(command);
                    if (result == -1) {
                         perror("system");
