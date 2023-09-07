@@ -5,10 +5,6 @@ void pingHelp() {
     puts("Usage: ping <dest IP>");
 }
 
-void scannerHelp() {
-    puts("Usage: scanner <dest IP> <start port> <end port>");
-}
-
 void dnslookupHelp() {
     puts("Usage: dnslookup <URL>");
 }

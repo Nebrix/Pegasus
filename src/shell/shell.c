@@ -152,15 +152,15 @@ int shell(void) {
             
             case CMD_SCANNER:
                 addToHistory(input);
-                if (tokenCount < 4) {
-                    scannerHelp();
+                if (tokenCount < 1) {
+                    return 1;
                 } else {
-                    char command[MAX_INPUT_SIZE];
-                    snprintf(command, sizeof(command), "./dist/scanner %s %d %d", tokens[1], tokens[2], tokens[3]);
-                    int result = system(command);
-                    if (result == -1) {
+                   char command[MAX_INPUT_SIZE];
+                   snprintf(command, sizeof(command), "dotnet run --project src/tools/PScan/PScan/PScan.csproj %s", tokens[1]);
+                   int result = system(command);
+                   if (result == -1) {
                         perror("system");
-                    }
+                   }
                 }
                 break;
 

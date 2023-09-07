@@ -50,8 +50,7 @@ else
     cc src/tools/traceroute/route.c -o dist/traceroute
     g++ src/tools/getIP/getIP.cc -o dist/getIP
     g++ src/tools/mac-spoof/mac.cc -o dist/mac
-    cc src/tools/packet-sniffer/sniffer.c -lpcap -o dist/sniffer
-    compile_go "src/tools/port-scanner/portscanner.go" "scanner" 
+    cc src/tools/packet-sniffer/sniffer.c -lpcap -o dist/sniffer 
     compile_go "src/tools/ping/icmp.go" "ping" > dist/
     compile_go "src/tools/dns/dns.go" "dns" 
     compile_go "src/tools/whois/whois.go" "whois"
