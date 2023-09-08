@@ -1,3 +1,5 @@
+#!/bin/bash
+
 install_go() {
     if ! command -v go >/dev/null; then
         # Detect the operating system and install Go based on the OS
