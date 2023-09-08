@@ -1,0 +1,90 @@
+#!/bin/bash
+
+clean() {
+    echo "Removing dist/ directory..."
+    rm -rf dist/
+    echo "Successfully removed files"
+}
+
+compile_go() {
+    local file="$1"
+    local output="$2"
+
+    echo "Compiling $file..."
+    go build -o "dist/$output" "$file" >/dev/null 2>&1 &
+    local command_pid=$!
+
+    while ps -p "$command_pid" >/dev/null; do
+        print_progress_bar $(ps -o etimes= -p "$command_pid") 10 "Compiling $file:" "Pegasus" 0 30 "█"
+        sleep 1
+    done
+
+    # Print the final progress bar at 100%
+    print_progress_bar 10 10 "Compiling $file:" "Complete" 0 30 "█"
+    echo ""  # Move to the next line after the progress bar
+}
+
+print_progress_bar() {
+    local iteration="$1"
+    local total="$2"
+    local prefix="$3"
+    local suffix="$4"
+    local decimals="$5"
+    local length="$6"
+    local fill="$7"
+
+    local percent=$(awk "BEGIN { pc=100*${iteration}/${total}; i=int(pc); print (pc-i<0.5)?i:i+1 }")
+    local filled_length=$(awk "BEGIN { fl=${length}*${iteration}/${total}; i=int(fl); print (fl-i<0.5)?i:i+1 }")
+    local bar=$(printf "%-${filled_length}s" "${fill}")
+    bar=${bar// /"${fill}"}
+    local spaces=$(printf "%-$((length-filled_length))s")
+
+    echo -ne "\r${prefix} [${bar}${spaces}] ${percent}% ${suffix}"
+}
+
+if [ "$1" == "clean" ]; then
+    clean
+else
+    mkdir -p dist/
+
+    # List of C and Go files to compile
+    c_files=(
+        "src/main.c"
+        "src/shell/shell.c"
+        "src/help/help.c"
+        "src/ascii/ascii.c"
+        "src/shell/helpers/helpers.c"
+        "src/shell/command/command.c"
+        "src/shell/history/history.c"
+        "src/core-util/core.c"
+    )
+
+    go_files=(
+        "src/tools/ping/icmp.go"
+        "src/tools/dns/dns.go"
+        "src/tools/whois/whois.go"
+        "src/tools/dirb/dirb.go"
+        "src/tools/chat-room/server.go"
+        "src/tools/hash/genhash.go"
+        "src/tools/hash/id.go"
+        "src/tools/subnet/subnet.go"
+        "src/tools/ip-lookup/ip.go"
+        "src/tools/web-server/web.go"
+        "src/tools/rev-shell/revshell.go"
+    )
+
+    # Compile C files
+    for file in "${c_files[@]}"; do
+        output_name=$(basename "$file" .c)
+        cc "$file" -o "dist/$output_name"
+    done
+
+    # Compile Go files
+    for file in "${go_files[@]}"; do
+        output_name=$(basename "$file" .go)
+        compile_go "$file" "$output_name"
+    done
+
+    echo "Compilation completed."
+    sudo ./dist/pegasus
+fi
