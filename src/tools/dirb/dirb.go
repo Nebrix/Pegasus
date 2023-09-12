@@ -29,7 +29,7 @@ func main() {
 	baseURL := os.Args[1]
 
 	// Read the wordlist from the file
-	file, err := os.Open("wordlist.txt")
+	file, err := os.Open("lists/*.txt")
 	if err != nil {
 		fmt.Println("Error opening wordlist.txt:", err)
 		return

@@ -238,7 +238,7 @@ namespace PScan
         {
             if (cachedPortInfos == null)
             {
-                string fileName = "ports.json";
+                string fileName = "lists/ports.json";
                 try
                 {
                     cachedPortInfos = ReadPortInfoFromFile(fileName);
