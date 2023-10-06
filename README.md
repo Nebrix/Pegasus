@@ -19,7 +19,7 @@ If you are using Windows, you would need to use a VM or a Linux subsystem (WSL) 
 
 ### Note 
 
-If you use the Experimental branch, expect things to not function correctly.
+you need to install pcap for your distro
 
 ## Installation
 
@@ -35,11 +35,11 @@ To install Pegasus, follow these steps:
 
 3. Make the build script executable:
 
-`chmod a+x build/build`
+`chmod a+x build`
 
 4. Run the build script:
 
-`./build/build`
+`./build`
 
 ## Usage
 
