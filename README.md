@@ -27,25 +27,23 @@ To install Pegasus, follow these steps:
 
 1. Clone the repository to your local machine:
 
-`git clone https://github.com/Codezz-ops/Pegasus.git`
+`git clone https://github.com/Nebrix/Pegasus.git`
 
 2. Change into the Pegasus directory:
 
 `cd Pegasus`
 
-3. Make the build & install script executable:
+3. Make the build script executable:
 
-`chmod a+x build/build.sh`
-`chmod a+x build/install`
+`chmod a+x build/build`
 
-4. Run the build & install script:
+4. Run the build script:
 
-`./build/install`
-`./build/build.sh`
+`./build/build`
 
 ## Usage
 
-Once Pegasus is successfully installed, you can run it by executing the `pegasus` command in your terminal:
+Once Pegasus is successfully installed, you can run it by executing the `sudo python3 src/main.py` command in your terminal:
 
 ![Pegasus Terminal](https://github.com/Codezz-ops/Pegasus/assets/112660193/32d2fd19-b35d-469c-935c-34eb8f28d95c)
 
@@ -65,17 +63,8 @@ Pegasus comes with a variety of hacking and security testing tools, including:
 - Server (server): Create a server on localhost that can be connected to using telnet or ncat.
 - Pegasus Edit (edit): Run an inline text editor.
 - Traceroute (traceroute): Trace the route packets take to reach a destination host.
-- Web Server (webserver): Run a simple web server for quick file sharing or testing purposes.
-- Reverse Shell (revshell): Create a reverse shell listener to establish a network connection to a remote system.
 - Get Ip (getip): gets local and public IP address for currently connected network.
 - MAC Address Spoofing (macspoof): Change the MAC address of a network interface to bypass network restrictions or enhance privacy.
-
-## Future Updates
-
-We are continuously improving Pegasus and working on exciting new features:
-
-- Working on implemting an inline text editor :heavy_check_mark:
-- Working on implemting an inline chat room for connection on same network connection :heavy_check_mark:
 
 ## Contribution
 
