@@ -28,7 +28,7 @@ For a more straightforward installation, you can pull the Docker image from Dock
 
 `docker pull nebrix/pegasus`
 
-`docker run -it docker.io/nebrix/pegasus`
+`docker run -it nebrix/pegasus`
 
 Using the Docker Hub image is the recommended and easier approach for most users.
 
