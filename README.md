@@ -14,6 +14,24 @@ Once Pegasus is successfully installed, you can run it by executing the `go run 
 
 ![Pegasus Terminal](https://github.com/Codezz-ops/Pegasus/assets/112660193/32d2fd19-b35d-469c-935c-34eb8f28d95c)
 
+## Docker installation
+
+### Local install
+If you prefer to build the Docker image locally, execute the following commands:
+
+`docker built -t pegasus .`
+
+`docker run -it pegasus`
+
+### Docker hub install (recommended)
+For a more straightforward installation, you can pull the Docker image from Docker Hub:
+
+`docker pull codezzops/pegasus:4.1.0`
+
+`docker run -it docker.io/codezzops/pegasus:4.1.0`
+
+Using the Docker Hub image is the recommended and easier approach for most users.
+
 ## Features
 
 Pegasus comes with a variety of hacking and security testing tools, including:
