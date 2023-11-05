@@ -19,7 +19,7 @@ Once Pegasus is successfully installed, you can run it by executing the `go run 
 ### Local install
 If you prefer to build the Docker image locally, execute the following commands:
 
-`docker built -t pegasus .`
+`docker build -t pegasus .`
 
 `docker run -it pegasus`
 
