@@ -26,9 +26,9 @@ If you prefer to build the Docker image locally, execute the following commands:
 ### Docker hub install (recommended)
 For a more straightforward installation, you can pull the Docker image from Docker Hub:
 
-`docker pull codezzops/pegasus:4.1.0`
+`docker pull nebrix/pegasus:4.1.0`
 
-`docker run -it docker.io/codezzops/pegasus:4.1.0`
+`docker run -it docker.io/nebrix/pegasus:4.1.0`
 
 Using the Docker Hub image is the recommended and easier approach for most users.
 
