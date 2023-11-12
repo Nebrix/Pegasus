@@ -1,4 +1,4 @@
-module dedsec
+module pegasus
 
 go 1.21.3
 
