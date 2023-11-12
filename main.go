@@ -1,7 +1,7 @@
 package main
 
 import (
-	"dedsec/src/shell"
+	"pegasus/src/shell"
 )
 
 func main() {
