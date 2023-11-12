@@ -11,8 +11,8 @@ import (
 	"strings"
 	"time"
 
-	"dedsec/src/tools"
-	"dedsec/src/util"
+	"pegasus/src/tools"
+	"pegasus/src/util"
 )
 
 type Shell struct {
