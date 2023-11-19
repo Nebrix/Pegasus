@@ -34,6 +34,7 @@ If you want a new style prompt run `go run main.go -style=<prompt>`
 - root
 - zsh, zsh-git
 - mac
+- hacker
 
 ## Docker installation
 
