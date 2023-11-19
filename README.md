@@ -14,6 +14,14 @@ Once Pegasus is successfully installed, you can run it by executing the `go run 
 
 ![Pegasus Terminal](https://github.com/Codezz-ops/Pegasus/assets/112660193/32d2fd19-b35d-469c-935c-34eb8f28d95c)
 
+If you want a new style prompt run `go run main.go -style=<prompt>`
+## Prompt styles
+
+- windows
+- root
+- zsh, zsh-git
+- mac
+
 ## Docker installation
 
 ### Local install
