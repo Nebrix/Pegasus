@@ -4,24 +4,7 @@ import (
 	"fmt"
 	"os"
 	"runtime"
-	"strings"
 )
-
-func version() string {
-	data, err := os.ReadFile(".version")
-	if err != nil {
-		fmt.Println("Error: .version file not found.")
-		return "Unknown"
-	}
-	lines := strings.Split(string(data), "\n")
-	for _, line := range lines {
-		if strings.HasPrefix(line, "VERSION=") {
-			return strings.TrimPrefix(line, "VERSION=")
-		}
-	}
-	fmt.Println("Error: Version not found in .version file.")
-	return "Unknown"
-}
 
 func getUsername() string {
 	username := os.Getenv("USER")
@@ -64,5 +47,5 @@ func Ascii() {
 	fmt.Println("⠀⠀⠀⢀⡃⠀⠐⠀⠂⠐⠂⢀⠂⠂⠐⢀⠀⡾⢔⢄⠡⣃⠀⠀")
 	fmt.Printf("⠀⢸⡏⠃⠀⠙⣞⡆⠀⠀⠀⠀⠀⠀⣵⡚⠱⣎⣇⠀⠀   username: %v\n", username)
 	fmt.Printf("⠀⣿⣷⠄⠀⠀⢹⣽⠀⠀⠀⠀⠀⣼⣳⠃⠀⠹⣾⣤⠀   distro: %v\n", distro)
-	fmt.Printf("⠀⠉⠁⠀⠀⠰⠿⠟⠀⠀⠀⠀⠘⠛⠛⠀⠀⠀⠹⠋    version: %v\n", version())
+	fmt.Printf("⠀⠉⠁⠀⠀⠰⠿⠟⠀⠀⠀⠀⠘⠛⠛⠀⠀⠀⠹⠋    version: %v\n", UseVar())
 }
