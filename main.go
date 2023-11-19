@@ -45,5 +45,6 @@ func main() {
 		initializeShell = shell.NewShell(shell.ShellDefaults)
 	}
 
+	shell.UseVar()
 	initializeShell.Start()
 }
