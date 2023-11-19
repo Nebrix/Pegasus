@@ -139,6 +139,8 @@ func (s *Shell) commandLine() {
 			s.getIPInfo(arguments)
 		case "subnet":
 			s.showSubnet(arguments)
+		case "help", "man":
+			helper.Help()
 		default:
 			errors.HandleWarn("Command not found", userInput)
 		}

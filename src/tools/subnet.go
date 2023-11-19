@@ -32,12 +32,12 @@ func subnetCalculator(ipAddress string, cidr int) {
 	subnetCount := uint32(1 << uint32(bits-cidr))
 
 	fmt.Println("Subnet Details:")
-	fmt.Printf("IP address: %s\n", ipAddress)
-	fmt.Printf("CIDR: /%d\n", cidr)
-	fmt.Printf("Network address: %s\n", networkIP.String())
-	fmt.Printf("Broadcast address: %s\n", broadcastIP.String())
-	fmt.Printf("Number of available addresses: %d\n", availableAddresses)
-	fmt.Printf("Number of subnets: %d\n", subnetCount)
+	fmt.Printf("IP address: %v\n", ipAddress)
+	fmt.Printf("CIDR: /%v\n", cidr)
+	fmt.Printf("Network address: %v\n", networkIP.String())
+	fmt.Printf("Broadcast address: %v\n", broadcastIP.String())
+	fmt.Printf("Number of available addresses: %v\n", availableAddresses)
+	fmt.Printf("Number of subnets: %v\n", subnetCount)
 }
 
 func ipToUint32(ip net.IP) uint32 {

@@ -20,28 +20,28 @@ func HashSha256(data string) {
 	hasher := sha256.New()
 	hasher.Write([]byte(data))
 	hash := hex.EncodeToString(hasher.Sum(nil))
-	fmt.Printf("%s\n", hash)
+	fmt.Printf("%v\n", hash)
 }
 
 func HashSha1(data string) {
 	hasher := sha1.New()
 	hasher.Write([]byte(data))
 	hash := hex.EncodeToString(hasher.Sum(nil))
-	fmt.Printf("%s\n", hash)
+	fmt.Printf("%v\n", hash)
 }
 
 func HashSha512(data string) {
 	hasher := sha512.New()
 	hasher.Write([]byte(data))
 	hash := hex.EncodeToString(hasher.Sum(nil))
-	fmt.Printf("%s\n", hash)
+	fmt.Printf("%v\n", hash)
 }
 
 func HashMD5(data string) {
 	hasher := md5.New()
 	hasher.Write([]byte(data))
 	hash := hex.EncodeToString(hasher.Sum(nil))
-	fmt.Printf("%s\n", hash)
+	fmt.Printf("%v\n", hash)
 }
 
 func Decodehash(data string) string {

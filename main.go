@@ -2,7 +2,6 @@ package main
 
 import (
 	"flag"
-	"fmt"
 	shell "shell/src"
 )
 
@@ -12,8 +11,6 @@ func main() {
 
 	var initializeShell *shell.Shell
 	switch *styleFlag {
-	case "default":
-		initializeShell = shell.NewShell(shell.ShellDefaults)
 	case "windows":
 		windowsConfig := shell.ShellConfig{
 			PromptStyle: "windows",
@@ -40,8 +37,7 @@ func main() {
 		}
 		initializeShell = shell.NewShell(macConfig)
 	default:
-		fmt.Println("Invalid shell style. Available styles: default, windows")
-		return
+		initializeShell = shell.NewShell(shell.ShellDefaults)
 	}
 
 	initializeShell.Start()
