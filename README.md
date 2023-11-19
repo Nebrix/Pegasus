@@ -4,6 +4,19 @@
     <img src="images/pegasus.png" alt="pegasus logo">
 </p>
 
+<!-- TOC -->
+- [Introduction](#introduction)
+- [Usage](#usage)
+- [Prompt Styles](#prompt-styles)
+- [Docker Installation](#docker-installation)
+    - [Local Install](#local-install)
+    - [Docker Hub Install (Recommended)](#docker-hub-install-recommended)
+- [Features](#features)
+- [Contribution](#contribution)
+- [License](#license)
+- [Disclaimer](#disclaimer)
+<!-- TOC -->
+
 ## Introduction
 
 Pegasus is a powerful hacking shell designed for Unix-based operating systems. It provides various tools and functionalities that can be used for security testing and ethical hacking purposes. This tool is intended for educational and responsible use only. Please use it responsibly and with proper authorization.

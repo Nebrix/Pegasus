@@ -36,6 +36,11 @@ func main() {
 			PromptStyle: "mac",
 		}
 		initializeShell = shell.NewShell(macConfig)
+	case "hacker":
+		hackerConfig := shell.ShellConfig{
+			PromptStyle: "hacker",
+		}
+		initializeShell = shell.NewShell(hackerConfig)
 	default:
 		initializeShell = shell.NewShell(shell.ShellDefaults)
 	}

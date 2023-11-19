@@ -85,6 +85,9 @@ func (s *Shell) setPrompt() {
 	case "mac":
 		currentDir := filepath.Base(s.UserInfo.Directory)
 		fmt.Printf("%v:%v$ ", s.UserInfo.Username, currentDir)
+	case "hacker":
+		currentDir := filepath.Base(s.UserInfo.Directory)
+		fmt.Printf("\033[32m%v=%v?\033[0m ", s.UserInfo.Username, currentDir)
 	default:
 		currentDir := filepath.Base(s.UserInfo.Directory)
 		fmt.Printf("[%v@%v %v]$ ", s.UserInfo.Username, s.UserInfo.Hostname, currentDir)
