@@ -1,13 +1,10 @@
-package util
+package shell
 
 import (
 	"fmt"
 	"os"
+	"runtime"
 	"strings"
-)
-
-var (
-	distro string
 )
 
 func version() string {
@@ -40,35 +37,19 @@ func getUsername() string {
 	return username
 }
 
-func retrieveDistributionName(distro *string) {
-	data, err := os.ReadFile("/etc/os-release")
-	if err != nil {
-		*distro = "Unknown"
-		return
+func retrieveDistributionName() string {
+	if runtime.GOOS == "windows" {
+		return "Windows"
+	} else if runtime.GOOS == "linux" {
+		return "Linux"
+	} else {
+		return "MacOS"
 	}
-	lines := strings.Split(string(data), "\n")
-	for _, line := range lines {
-		if strings.HasPrefix(line, "NAME=") {
-			nameStart := strings.Index(line, "=")
-			if nameStart != -1 {
-				nameStart++
-				if line[nameStart] == '"' {
-					nameStart++
-					nameEnd := strings.Index(line[nameStart:], "\"")
-					if nameEnd != -1 {
-						*distro = line[nameStart : nameStart+nameEnd]
-						return
-					}
-				}
-			}
-		}
-	}
-	*distro = "Unknown"
 }
 
 func Ascii() {
 	username := getUsername()
-	retrieveDistributionName(&distro)
+	distro := retrieveDistributionName()
 
 	fmt.Println("⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣤⡀⠀⠀⠀⠀⠀")
 	fmt.Println("⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢻⣧⠃⡃⠀⠀⠀⠀⠀")
