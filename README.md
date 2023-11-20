@@ -89,7 +89,7 @@ Pegasus comes with a variety of hacking and security testing tools, including:
 - [X] Advanced Tools
     - [ ] PortScanner - 1
     - [X] Packet Sniffer - 2
-    - [ ] Discover Wifi Networks
+    - [ ] Discover Wifi Networks - 3
 
 ## Contribution
 
