@@ -15,7 +15,7 @@
 - [Contribution](#contribution)
 - [License](#license)
 - [Disclaimer](#disclaimer)
-= [Todo](#todo)
+- [Todo](#todo)
 <!-- TOC -->
 
 ## Introduction
