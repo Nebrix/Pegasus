@@ -15,6 +15,7 @@
 - [Contribution](#contribution)
 - [License](#license)
 - [Disclaimer](#disclaimer)
+= [Todo](#todo)
 <!-- TOC -->
 
 ## Introduction
@@ -65,6 +66,18 @@ Pegasus comes with a variety of hacking and security testing tools, including:
 - Hash (hash): Generate a hash value.
 - Get Ip (ip): gets local and public IP address for currently connected network.
 - Subnet Calculator (subnet): Calculate subnet details and IP ranges.
+
+## Todo
+
+- [X] Simple Tools
+    - [X] Whois - 1
+    - [X] Dns - 2
+    - [X] Hashing - 3
+    - [X] ip/ip information - 4
+    - [X] subnet claculator -5
+- [X] Advanced Tools
+    - [] PortScanner - 1
+    - [] Packet Sniffer - 2
 
 ## Contribution
 
