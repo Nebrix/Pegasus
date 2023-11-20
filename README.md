@@ -24,6 +24,17 @@ Pegasus is a powerful hacking shell designed for Unix-based operating systems. I
 
 ## Usage
 
+### Note
+If you install the binary for any OS you will need to make the file a sudo binary
+- Linux
+    `sudo chown root:root /path/to/your/executable`
+    `sudo chmod u+s /path/to/your/executable`
+- Mac
+    `sudo visudo`
+    `yourusername ALL=(ALL) NOPASSWD: /path/to/your/executable`
+- Windows
+    `Run as Administrator`
+
 Once Pegasus is successfully installed, you can run it by executing the `go run main.go` command in your terminal:
 
 ![Pegasus Terminal](images/recent.png)
@@ -77,7 +88,8 @@ Pegasus comes with a variety of hacking and security testing tools, including:
     - [X] subnet claculator -5
 - [X] Advanced Tools
     - [ ] PortScanner - 1
-    - [ ] Packet Sniffer - 2
+    - [X] Packet Sniffer - 2
+    - [ ] Discover Wifi Networks
 
 ## Contribution
 

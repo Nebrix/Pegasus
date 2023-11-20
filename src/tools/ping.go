@@ -49,7 +49,7 @@ func Ping(host string, count int, timeout time.Duration) {
 			fmt.Println("Request timed out")
 		} else {
 			duration := time.Since(startTime)
-			fmt.Printf("Reply from %s: time=%v\n", addr.String(), duration)
+			fmt.Printf("Reply from %v: time=%v\n", addr.String(), duration)
 		}
 
 		time.Sleep(1 * time.Second)

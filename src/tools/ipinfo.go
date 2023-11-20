@@ -23,7 +23,7 @@ func GetIpInfo(host string) {
 	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK {
-		fmt.Printf("HTTP request failed with status code: %d\n", resp.StatusCode)
+		fmt.Printf("HTTP request failed with status code: %v\n", resp.StatusCode)
 		os.Exit(1)
 	}
 

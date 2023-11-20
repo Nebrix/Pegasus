@@ -142,6 +142,8 @@ func (s *Shell) commandLine() {
 			s.getIPInfo(arguments)
 		case "subnet":
 			s.showSubnet(arguments)
+		case "gosniff":
+			s.showSnifferPackets(arguments)
 		case "help", "man":
 			helper.Help()
 		default:
@@ -251,4 +253,8 @@ func (s *Shell) getDNSRecords(arguments []string) {
 
 func (s *Shell) getIPInfo(arguments []string) {
 	tools.GetIpInfo(arguments[0])
+}
+
+func (s *Shell) showSnifferPackets(arguments []string) {
+	tools.PacketSniffer(arguments[0])
 }
