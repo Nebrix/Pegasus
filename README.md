@@ -77,6 +77,7 @@ Pegasus comes with a variety of hacking and security testing tools, including:
 - Hash (hash): Generate a hash value.
 - Get Ip (ip): gets local and public IP address for currently connected network.
 - Subnet Calculator (subnet): Calculate subnet details and IP ranges.
+- Port scanner (scan): Runs a port scan for IP/Domain
 
 ## Todo
 
@@ -86,8 +87,8 @@ Pegasus comes with a variety of hacking and security testing tools, including:
     - [X] Hashing - 3
     - [X] ip/ip information - 4
     - [X] subnet claculator -5
-- [X] Advanced Tools
-    - [ ] PortScanner - 1
+- [ ] Advanced Tools
+    - [X] PortScanner - 1
     - [X] Packet Sniffer - 2
     - [ ] Discover Wifi Networks - 3
 

@@ -35,4 +35,5 @@ func Help() {
 	fmt.Println("  - Hash (hash):\t\tGenerate a hash value.")
 	fmt.Println("  - IP (ip):\t\t\tGet local and public IP addresses for the currently connected network.")
 	fmt.Println("  - Subnet Calculator (subnet):\tCalculate subnet details and IP ranges.")
+	fmt.Println("  - Port scanner (scan):\tRuns a port scan for IP/Domain")
 }

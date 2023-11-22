@@ -142,8 +142,10 @@ func (s *Shell) commandLine() {
 			s.getIPInfo(arguments)
 		case "subnet":
 			s.showSubnet(arguments)
-		case "gosniff":
+		case "sniff":
 			s.showSnifferPackets(arguments)
+		case "scan":
+			s.portScanner(arguments)
 		case "help", "man":
 			helper.Help()
 		default:
@@ -195,6 +197,11 @@ func OSReadDir(root string) ([]string, error) {
 	sort.Strings(files)
 
 	return files, nil
+}
+
+func (s *Shell) portScanner(arguments []string) {
+	host := arguments[0]
+	tools.PortScanner(host)
 }
 
 func (s *Shell) ping(arguments []string) {
