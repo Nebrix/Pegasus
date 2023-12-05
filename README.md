@@ -4,6 +4,9 @@
     <img src="images/pegasus.png" alt="pegasus logo">
 </p>
 
+## IMPORTANT NOTICE
+Please be aware that if you are operating on a Darwin system with arch=amd64 or Linux with arch=arm, it is essential to either build the software from source or install it using Docker.
+
 <!-- TOC -->
 - [Introduction](#introduction)
 - [Requirements](#requirements)
