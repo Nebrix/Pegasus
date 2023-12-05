@@ -6,12 +6,13 @@
 
 <!-- TOC -->
 - [Introduction](#introduction)
+- [Requirements](#requirements)
 - [Usage](#usage)
 - [Prompt Styles](#prompt-styles)
 - [Docker Installation](#docker-installation)
     - [Local Install](#local-install)
-    - [Docker Hub Install (Recommended)](#docker-hub-install-recommended)
-- [Features](#features)
+    - [Docker Hub Install](#docker-hub-install)
+- [Binary Install](#install-the-binary-recommend)
 - [Contribution](#contribution)
 - [License](#license)
 - [Disclaimer](#disclaimer)
@@ -21,6 +22,21 @@
 ## Introduction
 
 Pegasus is a powerful hacking shell designed for Unix-based operating systems. It provides various tools and functionalities that can be used for security testing and ethical hacking purposes. This tool is intended for educational and responsible use only. Please use it responsibly and with proper authorization.
+
+## Requirements
+<details>
+<summary>Linux</summary>
+
+<code>sudo apt install libpcap-dev</code> 
+
+</details>
+
+<details>
+<summary>Windows</summary>
+
+<code>Install [npcap](https://npcap.com/)</code>
+
+</details>
 
 ## Usage
 
@@ -39,7 +55,7 @@ Once Pegasus is successfully installed, you can run it by executing the `go run 
 
 ![Pegasus Terminal](images/recent.png)
 
-If you want a new style prompt run `go run main.go -style=<prompt>`
+If you want a new style prompt run `./pegasus -style=<prompt>`
 ## Prompt styles
 
 - windows
@@ -57,7 +73,7 @@ If you prefer to build the Docker image locally, execute the following commands:
 
 `docker run -it pegasus`
 
-### Docker hub install (recommended)
+### Docker hub install
 For a more straightforward installation, you can pull the Docker image from Docker Hub:
 
 `docker pull nebrix/pegasus`
@@ -66,18 +82,9 @@ For a more straightforward installation, you can pull the Docker image from Dock
 
 Using the Docker Hub image is the recommended and easier approach for most users.
 
-## Features
+## Install the binary (recommend)
 
-Pegasus comes with a variety of hacking and security testing tools, including:
-
-- ICMP Ping (ping): Send ICMP echo requests to check if a host is up.
-- DNS Enumeration (dns): Perform DNS enumeration on a domain to gather information.
-- WHOIS Lookup (whois): Retrieve WHOIS information for a domain.
-- IP Lookup (lookup): Retrieve basic information about an IP address.
-- Hash (hash): Generate a hash value.
-- Get Ip (ip): gets local and public IP address for currently connected network.
-- Subnet Calculator (subnet): Calculate subnet details and IP ranges.
-- Port scanner (scan): Runs a port scan for IP/Domain
+Download the binary [pegasus](https://github.com/Nebrix/Pegasus/releases)
 
 ## Todo
 

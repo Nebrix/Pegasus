@@ -26,6 +26,7 @@ var ShellDefaults = ShellConfig{
 type Shell struct {
 	UserInfo    UserInfo
 	ShellConfig ShellConfig
+	shellName   string
 }
 
 type UserInfo struct {
@@ -33,6 +34,10 @@ type UserInfo struct {
 	Directory string
 	Hostname  string
 	Home      string
+}
+
+type OSINTShell struct {
+	mainShell *Shell
 }
 
 func NewShell(config ShellConfig) *Shell {
@@ -61,6 +66,7 @@ func NewShell(config ShellConfig) *Shell {
 			Home:      currentUser.HomeDir,
 		},
 		ShellConfig: config,
+		shellName:   "default",
 	}
 }
 
@@ -92,6 +98,10 @@ func (s *Shell) setPrompt() {
 		currentDir := filepath.Base(s.UserInfo.Directory)
 		fmt.Printf("[%v@%v %v]$ ", s.UserInfo.Username, s.UserInfo.Hostname, currentDir)
 	}
+}
+
+func (s *Shell) setOSINTPrompt() {
+	fmt.Printf("[%v %v]$ ", s.shellName, filepath.Base(s.UserInfo.Directory))
 }
 
 func (s *Shell) Start() {
@@ -130,16 +140,8 @@ func (s *Shell) commandLine() {
 			s.listDirectory()
 		case "ping":
 			s.ping(arguments)
-		case "whois":
-			s.whois(arguments)
 		case "hash":
 			s.hash(arguments)
-		case "ip":
-			s.showIP()
-		case "dig":
-			s.getDNSRecords(arguments)
-		case "lookup":
-			s.getIPInfo(arguments)
 		case "subnet":
 			s.showSubnet(arguments)
 		case "sniff":
@@ -147,7 +149,59 @@ func (s *Shell) commandLine() {
 		case "scan":
 			s.portScanner(arguments)
 		case "help", "man":
-			helper.Help()
+			helper.MainHelp()
+		case "osint":
+			s.shellName = "osint"
+			osintShell := newOSINTShell(s)
+			osintShell.start()
+		default:
+			errors.HandleWarn("Command not found", userInput)
+		}
+	}
+}
+
+func newOSINTShell(mainShell *Shell) *OSINTShell {
+	return &OSINTShell{mainShell: mainShell}
+}
+
+func (osintShell *OSINTShell) start() {
+	reader := bufio.NewReader(os.Stdin)
+	for {
+		osintShell.mainShell.setOSINTPrompt()
+
+		userInput, err := reader.ReadString('\n')
+		if errors.HandleErr("Error reading input", err) {
+			continue
+		}
+
+		args := strings.Fields(userInput)
+
+		if len(args) == 0 {
+			continue
+		}
+
+		command := args[0]
+		arguments := args[1:]
+
+		switch command {
+		case "exit":
+			return
+		case "cls", "clear", "Clear-Host":
+			fmt.Print("\033[H\033[2J")
+		case "cd", "Set-Location":
+			osintShell.mainShell.changeDirectory(arguments)
+		case "ls", "dir":
+			osintShell.mainShell.listDirectory()
+		case "whois":
+			osintShell.mainShell.whois(arguments)
+		case "ip":
+			osintShell.mainShell.showIP()
+		case "dig":
+			osintShell.mainShell.getDNSRecords(arguments)
+		case "lookup":
+			osintShell.mainShell.getIPInfo(arguments)
+		case "help", "man":
+			helper.OsintHelp()
 		default:
 			errors.HandleWarn("Command not found", userInput)
 		}
