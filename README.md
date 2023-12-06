@@ -76,12 +76,12 @@ If you prefer to build the Docker image locally, execute the following commands:
 
 `docker run -it pegasus`
 
-### Docker hub install
+### Docker hub install (recommend for arm)
 For a more straightforward installation, you can pull the Docker image from Docker Hub:
 
-`docker pull nebrix/pegasus`
+`docker pull nebrix/pegasus:4.3.0`
 
-`docker run -it nebrix/pegasus`
+`docker run -it docker.io/nebrix/pegasus:4.3.0`
 
 Using the Docker Hub image is the recommended and easier approach for most users.
 
@@ -101,6 +101,9 @@ Download the binary [pegasus](https://github.com/Nebrix/Pegasus/releases)
     - [X] PortScanner - 1
     - [X] Packet Sniffer - 2
     - [ ] Discover Wifi Networks - 3
+- [ ] User customizability
+    - [X] Shell Prompt styles - 1
+    - [ ] Custom Prompt styles - 2
 
 ## Contribution
 
