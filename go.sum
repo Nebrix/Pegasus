@@ -1,3 +1,5 @@
+github.com/aeden/traceroute v0.0.0-20210211061815-03f5f7cb7908 h1:6suDyKbvZ5r2G/gblQLV9Cdv7rdqNlUxsRXpLOF0rKM=
+github.com/aeden/traceroute v0.0.0-20210211061815-03f5f7cb7908/go.mod h1:HPBB/4vaPt7NcN9l72/+IwsmDVQsa6AWM6ZDKJCLB9U=
 github.com/go-ping/ping v1.1.0 h1:3MCGhVX4fyEUuhsfwPrsEdQw6xspHkv5zHsiSoDFZYw=
 github.com/go-ping/ping v1.1.0/go.mod h1:xIFjORFzTxqIV/tDVGO4eDy/bLuSyawEeojSm3GfRGk=
 github.com/google/gopacket v1.1.19 h1:ves8RnFZPGiFnTS0uPQStjwru6uO6h+nlr9j6fL7kF8=

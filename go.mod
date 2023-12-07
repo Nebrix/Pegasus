@@ -3,6 +3,7 @@ module shell
 go 1.21.4
 
 require (
+	github.com/aeden/traceroute v0.0.0-20210211061815-03f5f7cb7908
 	github.com/go-ping/ping v1.1.0
 	github.com/google/gopacket v1.1.19
 	github.com/likexian/whois v1.15.1

@@ -1,4 +1,4 @@
-package shell
+package helper
 
 import (
 	"fmt"
@@ -47,5 +47,5 @@ func Ascii() {
 	fmt.Println("⠀⠀⠀⢀⡃⠀⠐⠀⠂⠐⠂⢀⠂⠂⠐⢀⠀⡾⢔⢄⠡⣃⠀⠀")
 	fmt.Printf("⠀  ⢸⡏⠃⠀⠙⣞⡆⠀⠀⠀⠀⠀⠀⣵⡚⠱⣎⣇⠀⠀   username: %v\n", username)
 	fmt.Printf(" ⠀ ⣿⣷⠄⠀⠀⢹⣽⠀⠀⠀⠀⠀⣼⣳⠃⠀⠹⣾⣤⠀   distro: %v\n", distro)
-	fmt.Printf("⠀  ⠉⠁⠀⠀⠰⠿⠟⠀⠀⠀⠀⠘⠛⠛⠀⠀⠀⠹⠋    version: %v\n", UseVar())
+	fmt.Printf("⠀  ⠉⠁⠀⠀⠰⠿⠟⠀⠀⠀⠀⠘⠛⠛⠀⠀⠀⠹⠋    version: %v\n", GetVersion())
 }

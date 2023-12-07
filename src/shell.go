@@ -6,13 +6,27 @@ import (
 	"os"
 	"os/user"
 	"path/filepath"
-	"shell/src/errors"
+	"shell/src/cmd"
 	"shell/src/helper"
-	"shell/src/tools"
-	"sort"
-	"strconv"
 	"strings"
-	"time"
+)
+
+const (
+	WindowsPrompt = "windows"
+	ZshPrompt     = "zsh"
+	ZshGitPrompt  = "zsh-git"
+	RootPrompt    = "root"
+	MacPrompt     = "mac"
+	HackerPrompt  = "hacker"
+	DefaultPrompt = "default"
+
+	EscapeWindows = "%v> \033[0m"
+	EscapeZsh     = "\033[1;32m➜  \033[1;34m%v\033[0m "
+	EscapeZshGit  = "\033[1;32m➜  \033[1;34m%v \033[31m(%v)\033[0m "
+	EscapeRoot    = "%v# "
+	EscapeMac     = "%v:%v$ "
+	EscapeHacker  = "\033[32m%v=%v?\033[0m "
+	EscapeDefault = "[%v@%v %v]$ "
 )
 
 type ShellConfig struct {
@@ -20,7 +34,7 @@ type ShellConfig struct {
 }
 
 var ShellDefaults = ShellConfig{
-	PromptStyle: "default",
+	PromptStyle: DefaultPrompt,
 }
 
 type Shell struct {
@@ -40,20 +54,20 @@ type OSINTShell struct {
 	mainShell *Shell
 }
 
-func NewShell(config ShellConfig) *Shell {
+func NewShell(config ShellConfig) (*Shell, error) {
 	currentUser, err := user.Current()
-	if errors.HandleErr("Error getting current user", err) {
-		os.Exit(1)
+	if err != nil {
+		return nil, fmt.Errorf("error getting current user: %v", err)
 	}
 
 	currentWorkingDir, err := os.Getwd()
-	if errors.HandleErr("Error getting current working directory", err) {
-		os.Exit(1)
+	if err != nil {
+		return nil, fmt.Errorf("error getting current working directory: %v", err)
 	}
 
 	hostname, err := os.Hostname()
-	if errors.HandleErr("Error getting hostname", err) {
-		os.Exit(1)
+	if err != nil {
+		return nil, fmt.Errorf("error getting hostname: %v", err)
 	}
 
 	username := helper.ExtractUsername(currentUser.Username)
@@ -67,37 +81,31 @@ func NewShell(config ShellConfig) *Shell {
 		},
 		ShellConfig: config,
 		shellName:   "default",
+	}, nil
+}
+
+func setPrompt(s *Shell) {
+	switch strings.ToLower(s.ShellConfig.PromptStyle) {
+	case WindowsPrompt:
+		setEscapePrompt(EscapeWindows, s.UserInfo.Directory)
+	case ZshPrompt:
+		setEscapePrompt(EscapeZsh, filepath.Base(s.UserInfo.Directory))
+	case ZshGitPrompt:
+		gitBranch := helper.GetGitBranch(s.UserInfo.Directory)
+		setEscapePrompt(EscapeZshGit, filepath.Base(s.UserInfo.Directory), gitBranch)
+	case RootPrompt:
+		setEscapePrompt(EscapeRoot, filepath.Base(s.UserInfo.Directory))
+	case MacPrompt:
+		setEscapePrompt(EscapeMac, s.UserInfo.Username, filepath.Base(s.UserInfo.Directory))
+	case HackerPrompt:
+		setEscapePrompt(EscapeHacker, s.UserInfo.Username, filepath.Base(s.UserInfo.Directory))
+	default:
+		setEscapePrompt(EscapeDefault, s.UserInfo.Username, s.UserInfo.Hostname, filepath.Base(s.UserInfo.Directory))
 	}
 }
 
-func (s *Shell) setPrompt() {
-	switch s.ShellConfig.PromptStyle {
-	case "windows":
-		currentDrive := filepath.VolumeName(s.UserInfo.Directory)
-		relativePath := strings.TrimPrefix(s.UserInfo.Directory, currentDrive)
-		relativePath = strings.TrimPrefix(relativePath, string(os.PathSeparator))
-		relativePath = strings.ReplaceAll(relativePath, "/", "\\")
-		fmt.Printf("%v\\%v> ", currentDrive, relativePath)
-	case "zsh":
-		currentDir := filepath.Base(s.UserInfo.Directory)
-		fmt.Printf("\033[1;32m➜  \033[1;34m%v\033[0m ", currentDir)
-	case "zsh-git":
-		gitBranch := helper.GetGitBranch(s.UserInfo.Directory)
-		currentDir := filepath.Base(s.UserInfo.Directory)
-		fmt.Printf("\033[1;32m➜  \033[1;34m%v \033[31m(%v)\033[0m ", currentDir, gitBranch)
-	case "root":
-		currentDir := filepath.Base(s.UserInfo.Directory)
-		fmt.Printf("%v# ", currentDir)
-	case "mac":
-		currentDir := filepath.Base(s.UserInfo.Directory)
-		fmt.Printf("%v:%v$ ", s.UserInfo.Username, currentDir)
-	case "hacker":
-		currentDir := filepath.Base(s.UserInfo.Directory)
-		fmt.Printf("\033[32m%v=%v?\033[0m ", s.UserInfo.Username, currentDir)
-	default:
-		currentDir := filepath.Base(s.UserInfo.Directory)
-		fmt.Printf("[%v@%v %v]$ ", s.UserInfo.Username, s.UserInfo.Hostname, currentDir)
-	}
+func setEscapePrompt(escapeFormat string, args ...interface{}) {
+	fmt.Printf(escapeFormat, args...)
 }
 
 func (s *Shell) setOSINTPrompt() {
@@ -110,18 +118,17 @@ func (s *Shell) Start() {
 
 func (s *Shell) commandLine() {
 	reader := bufio.NewReader(os.Stdin)
-	Ascii()
+	helper.Ascii()
 
 	for {
-		s.setPrompt()
+		setPrompt(s)
 
 		userInput, err := reader.ReadString('\n')
-		if errors.HandleErr("Error reading input", err) {
+		if handleInputError(err) {
 			continue
 		}
 
 		args := strings.Fields(userInput)
-
 		if len(args) == 0 {
 			continue
 		}
@@ -133,21 +140,23 @@ func (s *Shell) commandLine() {
 		case "exit":
 			os.Exit(0)
 		case "cls", "clear", "Clear-Host":
-			fmt.Print("\033[H\033[2J")
+			clearScreen()
 		case "cd", "Set-Location":
 			s.changeDirectory(arguments)
 		case "ls", "dir":
 			s.listDirectory()
 		case "ping":
-			s.ping(arguments)
+			cmd.Ping(arguments)
 		case "hash":
-			s.hash(arguments)
+			cmd.Hash(arguments)
 		case "subnet":
-			s.showSubnet(arguments)
+			cmd.ShowSubnet(arguments)
 		case "sniff":
-			s.showSnifferPackets(arguments)
+			cmd.ShowSnifferPackets(arguments)
 		case "scan":
-			s.portScanner(arguments)
+			cmd.PortScanner(arguments)
+		case "traceroute":
+			cmd.Traceroute(arguments)
 		case "help", "man":
 			helper.MainHelp()
 		case "osint":
@@ -155,13 +164,9 @@ func (s *Shell) commandLine() {
 			osintShell := newOSINTShell(s)
 			osintShell.start()
 		default:
-			errors.HandleWarn("Command not found", userInput)
+			helper.HandleWarn("Command not found", userInput)
 		}
 	}
-}
-
-func newOSINTShell(mainShell *Shell) *OSINTShell {
-	return &OSINTShell{mainShell: mainShell}
 }
 
 func (osintShell *OSINTShell) start() {
@@ -170,12 +175,11 @@ func (osintShell *OSINTShell) start() {
 		osintShell.mainShell.setOSINTPrompt()
 
 		userInput, err := reader.ReadString('\n')
-		if errors.HandleErr("Error reading input", err) {
+		if handleInputError(err) {
 			continue
 		}
 
 		args := strings.Fields(userInput)
-
 		if len(args) == 0 {
 			continue
 		}
@@ -187,25 +191,40 @@ func (osintShell *OSINTShell) start() {
 		case "exit":
 			return
 		case "cls", "clear", "Clear-Host":
-			fmt.Print("\033[H\033[2J")
+			clearScreen()
 		case "cd", "Set-Location":
 			osintShell.mainShell.changeDirectory(arguments)
 		case "ls", "dir":
 			osintShell.mainShell.listDirectory()
 		case "whois":
-			osintShell.mainShell.whois(arguments)
+			cmd.Whois(arguments)
 		case "ip":
-			osintShell.mainShell.showIP()
+			cmd.ShowIP()
 		case "dig":
-			osintShell.mainShell.getDNSRecords(arguments)
+			cmd.GetDNSRecords(arguments)
 		case "lookup":
-			osintShell.mainShell.getIPInfo(arguments)
+			cmd.GetIPInfo(arguments)
+		case "webheader":
+			cmd.Webheader(arguments)
 		case "help", "man":
 			helper.OsintHelp()
 		default:
-			errors.HandleWarn("Command not found", userInput)
+			helper.HandleWarn("Command not found", userInput)
 		}
 	}
+}
+
+func handleInputError(err error) bool {
+	helper.HandleErr("Error reading input", err)
+	return false
+}
+
+func clearScreen() {
+	fmt.Print("\033[H\033[2J")
+}
+
+func newOSINTShell(mainShell *Shell) *OSINTShell {
+	return &OSINTShell{mainShell: mainShell}
 }
 
 func (s *Shell) changeDirectory(arguments []string) {
@@ -214,8 +233,7 @@ func (s *Shell) changeDirectory(arguments []string) {
 		newDir = filepath.Dir(s.UserInfo.Directory)
 	}
 
-	err := os.Chdir(newDir)
-	if errors.HandleErr("Error changing directory", err) {
+	if helper.HandleErr("Error changing directory", os.Chdir(newDir)) {
 		return
 	}
 
@@ -223,99 +241,7 @@ func (s *Shell) changeDirectory(arguments []string) {
 }
 
 func (s *Shell) listDirectory() {
-	files, err := OSReadDir(s.UserInfo.Directory)
-	if errors.HandleErr("Error listing directory", err) {
-		return
+	if files, err := helper.OSReadDir(s.UserInfo.Directory); !helper.HandleErr("Error listing directory", err) {
+		fmt.Println(strings.Join(files, "\n"))
 	}
-
-	for _, file := range files {
-		fmt.Println(file)
-	}
-}
-
-func OSReadDir(root string) ([]string, error) {
-	var files []string
-	dirEntries, err := os.ReadDir(root)
-	if errors.HandleErr("", err) {
-		return nil, err
-	}
-
-	for _, dirEntry := range dirEntries {
-		if dirEntry.IsDir() {
-			files = append(files, dirEntry.Name()+"/")
-		} else {
-			files = append(files, dirEntry.Name())
-		}
-	}
-
-	sort.Strings(files)
-
-	return files, nil
-}
-
-func (s *Shell) portScanner(arguments []string) {
-	host := arguments[0]
-	tools.PortScanner(host)
-}
-
-func (s *Shell) ping(arguments []string) {
-	host := arguments[0]
-	count, err := strconv.Atoi(arguments[1])
-	if errors.HandleErr("Error parsing count", err) {
-		return
-	}
-
-	tools.Ping(host, count, 2*time.Second)
-}
-
-func (s *Shell) whois(arguments []string) {
-	tools.Getwhois(arguments[0])
-}
-
-func (s *Shell) hash(arguments []string) {
-	method := arguments[0]
-	data := arguments[1]
-
-	switch method {
-	case "md5":
-		tools.HashMD5(data)
-	case "sha1":
-		tools.HashSha1(data)
-	case "sha256":
-		tools.HashSha256(data)
-	case "sha512":
-		tools.HashSha512(data)
-	case "decode":
-		fmt.Printf("Hash Algorithm: %s\n", tools.Decodehash(data))
-	default:
-		errors.HandleWarn("Unsupported hash method", method)
-	}
-}
-
-func (s *Shell) showIP() {
-	tools.ShowIP()
-}
-
-func (s *Shell) showSubnet(arguments []string) {
-	host := arguments[0]
-	cidrStr := arguments[1]
-
-	cidr, err := strconv.Atoi(cidrStr)
-	if errors.HandleErr("Invalid CIDR", err) {
-		return
-	}
-
-	tools.ShowCalculation(host, cidr)
-}
-
-func (s *Shell) getDNSRecords(arguments []string) {
-	tools.GetDNSRecords(arguments[0])
-}
-
-func (s *Shell) getIPInfo(arguments []string) {
-	tools.GetIpInfo(arguments[0])
-}
-
-func (s *Shell) showSnifferPackets(arguments []string) {
-	tools.PacketSniffer(arguments[0])
 }
