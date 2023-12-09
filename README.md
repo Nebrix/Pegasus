@@ -91,19 +91,23 @@ Download the binary [pegasus](https://github.com/Nebrix/Pegasus/releases)
 
 ## Todo
 
-- [X] Simple Tools
-    - [X] Whois - 1
-    - [X] Dns - 2
-    - [X] Hashing - 3
-    - [X] ip/ip information - 4
-    - [X] subnet claculator -5
-- [ ] Advanced Tools
-    - [X] PortScanner - 1
-    - [X] Packet Sniffer - 2
-    - [ ] Discover Wifi Networks - 3
-- [ ] User customizability
-    - [X] Shell Prompt styles - 1
-    - [ ] Custom Prompt styles - 2
+- [X] Whois- Retrieve detailed registration information for a domain, including contact details.
+- [X] DNS - Perform DNS enumeration on a domain to gather information about its DNS records.
+- [X] Hashing - Generate a cryptographic hash value for a given input.
+- [X] IP/IP Information - Retrieve basic information about an IP address, such as its geolocation and ISP.
+- [X] Subnet Calculator - Calculate subnet details, including network and broadcast addresses, and IP ranges.
+
+- [X] Port Scanner - Scan for open ports on a specified IP address or domain.
+- [X] Packet Sniffer - Capture and analyze network packets on a specified interface.
+- [ ] Discover WiFi Networks - [Description: Discover networks]
+
+- [X] Ping - ICMP Ping: Send ICMP echo requests to check the reachability of a host and measure round-trip times.
+- [X] Traceroute - Traceroute: Reveal the network path and measure transit times of packets to a destination IP address.
+- [X] Web Header - Website Header: Retrieve basic header information via an HTTP web request.
+- [X] IP Addresses - IP: Display local and public IP addresses for the currently connected network.
+
+- [X] Shell Prompt Styles - Customize the style of the shell prompt.
+- [ ] Custom Prompt Styles - [Description: Create custom shell prompts]
 
 ## Contribution
 
