@@ -91,22 +91,22 @@ Download the binary [pegasus](https://github.com/Nebrix/Pegasus/releases)
 
 ## Todo
 
-- [X] Whois- Retrieve detailed registration information for a domain, including contact details.
-- [X] DNS - Perform DNS enumeration on a domain to gather information about its DNS records.
-- [X] Hashing - Generate a cryptographic hash value for a given input.
-- [X] IP/IP Information - Retrieve basic information about an IP address, such as its geolocation and ISP.
-- [X] Subnet Calculator - Calculate subnet details, including network and broadcast addresses, and IP ranges.
+- [X] Whois- [Description: Retrieve detailed registration information for a domain, including contact details]
+- [X] DNS - [Description: Perform DNS enumeration on a domain to gather information about its DNS records]
+- [X] Hashing - [Description: Generate a cryptographic hash value for a given input]
+- [X] IP/IP Information - [Description: Retrieve basic information about an IP address, such as its geolocation and ISP]
+- [X] Subnet Calculator - [Description: Calculate subnet details, including network and broadcast addresses, and IP ranges]
 
-- [X] Port Scanner - Scan for open ports on a specified IP address or domain.
-- [X] Packet Sniffer - Capture and analyze network packets on a specified interface.
+- [X] Port Scanner - [Description: Scan for open ports on a specified IP address or domain]
+- [X] Packet Sniffer - [Description: Capture and analyze network packets on a specified interface]
 - [ ] Discover WiFi Networks - [Description: Discover networks]
 
-- [X] Ping - ICMP Ping: Send ICMP echo requests to check the reachability of a host and measure round-trip times.
-- [X] Traceroute - Traceroute: Reveal the network path and measure transit times of packets to a destination IP address.
-- [X] Web Header - Website Header: Retrieve basic header information via an HTTP web request.
-- [X] IP Addresses - IP: Display local and public IP addresses for the currently connected network.
+- [X] Ping - [Description: Send ICMP echo requests to check the reachability of a host and measure round-trip times]
+- [X] Traceroute - [Description: Reveal the network path and measure transit times of packets to a destination IP address]
+- [X] Web Header - [Description: Retrieve basic header information via an HTTP web request]
+- [X] IP Addresses - [Description: Display local and public IP addresses for the currently connected network]
 
-- [X] Shell Prompt Styles - Customize the style of the shell prompt.
+- [X] Shell Prompt Styles - [Description: Customize the style of the shell prompt]
 - [ ] Custom Prompt Styles - [Description: Create custom shell prompts]
 
 ## Contribution
@@ -115,7 +115,7 @@ If you find any bugs or want to contribute to Pegasus, please feel free to open 
 
 ## License
 
-Pegasus is open-source software licensed under the [MIT License](https://github.com/Codezz-ops/Pegasus-Go/blob/main/COPYING). You are free to use, modify, and distribute this software with proper attribution and in compliance with the license terms.
+Pegasus is open-source software licensed under the [MIT License](https://github.com/Nebrix/Pegasus/blob/main/COPYING). You are free to use, modify, and distribute this software with proper attribution and in compliance with the license terms.
 
 ## Disclaimer
 

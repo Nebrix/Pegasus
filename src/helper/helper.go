@@ -65,7 +65,7 @@ func OsintHelp() {
 }
 
 func printCommandHelp(command, title, description string) {
-	fmt.Printf("  - %s (%s):\n\t%s\n", command, title, description)
+	fmt.Printf("  - %v (%v):\n\t%v\n", command, title, description)
 }
 
 func HandleErr(msg string, err error) bool {

@@ -156,8 +156,8 @@ func HeaderRetrieve(url string) {
 		return
 	}
 
-	fmt.Printf("Headers for %s:\n", url)
+	fmt.Printf("Headers for %v:\n", url)
 	for key, values := range headers {
-		fmt.Printf("%s: %v\n", key, values)
+		fmt.Printf("%v: %v\n", key, values)
 	}
 }
