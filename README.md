@@ -46,16 +46,20 @@ Pegasus is a powerful hacking shell designed for Unix-based operating systems. I
 ### Note
 If you install the binary for any OS you will need to make the file a sudo binary
 - Linux
+
     `sudo chown root:root /path/to/your/executable`
 
     `sudo chmod u+s /path/to/your/executable`
 
 - Mac
+
+
     `sudo visudo`
 
     `yourusername ALL=(ALL) NOPASSWD: /path/to/your/executable`
 
 - Windows
+
     `Run as Administrator`
 
 Once Pegasus is successfully installed, you can run it by executing the `go run main.go` command in your terminal:
