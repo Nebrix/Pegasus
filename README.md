@@ -30,7 +30,7 @@ Pegasus is a powerful hacking shell designed for Unix-based operating systems. I
 <details>
 <summary>Linux</summary>
 
-<code>sudo apt install libpcap-dev</code> 
+<code>bash install/install-pcap</code> 
 
 </details>
 
@@ -47,10 +47,14 @@ Pegasus is a powerful hacking shell designed for Unix-based operating systems. I
 If you install the binary for any OS you will need to make the file a sudo binary
 - Linux
     `sudo chown root:root /path/to/your/executable`
+
     `sudo chmod u+s /path/to/your/executable`
+
 - Mac
     `sudo visudo`
+
     `yourusername ALL=(ALL) NOPASSWD: /path/to/your/executable`
+
 - Windows
     `Run as Administrator`
 
@@ -108,6 +112,8 @@ Download the binary [pegasus](https://github.com/Nebrix/Pegasus/releases)
 
 - [X] Shell Prompt Styles - [Description: Customize the style of the shell prompt]
 - [ ] Custom Prompt Styles - [Description: Create custom shell prompts]
+
+- [X] Install Script - [Description: Installer for libpcap (Unix only)]
 
 ## Contribution
 

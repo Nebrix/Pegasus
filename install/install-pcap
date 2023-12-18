@@ -1,0 +1,37 @@
+#!/bin/sh
+
+os_name=$(cat /etc/os-release | grep PRETTY_NAME | cut -d'"' -f2 | awk '{print $1}')
+
+case "$os_name" in
+    "Arch")
+        # Arch Linux Installer
+        if command -v pacman &> /dev/null; then
+            sudo pacman -S --needed --noconfirm libpcap
+        elif command -v yay &> /dev/null; then
+            yay -S --needed --noconfirm libpcap
+        fi
+        ;;
+    "Ubuntu" | "Debian" | "LinuxMint" | "elementary" | "Pop")
+        # Debian-based Linux Installer
+        if command -v apt-get &> /dev/null; then
+            sudo apt-get install -y libpcap-dev
+        fi
+        ;;
+    "Fedora" | "RedHat" | "CentOS")
+        # Redhat-based Linux Installer
+        if command -v dnf &> /dev/null; then
+            sudo dnf install -y libpcap-devel
+        elif command -v yum &> /dev/null; then
+            sudo yum install -y libpcap-devel
+        fi
+        ;;
+    *)
+        echo -e "\033[0;31m[-] Unsupported Linux distribuation. Please install libpcap manually.\033[0m"
+        ;;
+esac
+
+if [ $? -eq 0 ]; then
+    echo -e "\033[0;32m[+] Install successful!\033[0m"
+else
+    echo -e "\033[0;31m[-] Install failed.\033[0m"
+fi
