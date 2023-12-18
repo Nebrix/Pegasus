@@ -12,7 +12,8 @@ import (
 	"os"
 	"time"
 
-	"github.com/aeden/traceroute"
+	"golang.org/x/net/icmp"
+	"golang.org/x/net/ipv4"
 )
 
 const (
@@ -171,44 +172,70 @@ func ShowCalculation(host string, cidr int) {
 	subnetCalculator(host, cidr)
 }
 
-func printHop(hop traceroute.TracerouteHop) {
-	addr := fmt.Sprintf("%v.%v.%v.%v", hop.Address[0], hop.Address[1], hop.Address[2], hop.Address[3])
-	hostOrAddr := addr
-	if hop.Host != "" {
-		hostOrAddr = hop.Host
-	}
-	if hop.Success {
-		fmt.Printf("%-3d %v (%v)  %v\n", hop.TTL, hostOrAddr, addr, hop.ElapsedTime)
-	} else {
-		fmt.Printf("%-3d *\n", hop.TTL)
-	}
-}
-
 func Traceroute(host string) {
-	options := traceroute.TracerouteOptions{}
+	fmt.Printf("Traceroute to %v...\n", host)
 
 	ipAddr, err := net.ResolveIPAddr("ip", host)
 	if err != nil {
-		return
+		fmt.Println("Error resolving target host:", err)
+		os.Exit(1)
 	}
 
-	fmt.Printf("traceroute to %v (%v), %v hops max, %v byte packets\n", host, ipAddr, options.MaxHops(), options.PacketSize())
-
-	c := make(chan traceroute.TracerouteHop)
-	go func() {
-		for {
-			hop, ok := <-c
-			if !ok {
-				fmt.Println()
-				return
-			}
-			printHop(hop)
-		}
-	}()
-
-	_, err = traceroute.Traceroute(host, &options, c)
+	conn, err := icmp.ListenPacket("ip4:icmp", "0.0.0.0")
 	if err != nil {
-		fmt.Println("Error: ", err)
+		fmt.Println("Error opening scoket:", err)
+		os.Exit(1)
 	}
+	defer conn.Close()
 
+	ttl := 1
+
+	for {
+		message := icmp.Message{
+			Type: ipv4.ICMPTypeEcho,
+			Code: 0,
+			Body: &icmp.Echo{
+				ID:   os.Getpid() & 0xffff,
+				Seq:  ttl,
+				Data: []byte(""),
+			},
+		}
+
+		messageBytes, err := message.Marshal(nil)
+		if err != nil {
+			fmt.Println("Error marshalling ICMP message:", err)
+			os.Exit(1)
+		}
+
+		if err := conn.IPv4PacketConn().SetTTL(ttl); err != nil {
+			fmt.Println("Error setting TTL:", err)
+			os.Exit(1)
+		}
+
+		_, err = conn.WriteTo(messageBytes, ipAddr)
+		if err != nil {
+			fmt.Println("Error sending ICMP message:", err)
+			os.Exit(1)
+		}
+
+		reply := make([]byte, 1500)
+		_, _, err = conn.ReadFrom(reply)
+		if err != nil {
+			fmt.Println("Error receiving ICMP reply:", err)
+			os.Exit(1)
+		}
+
+		fmt.Printf("%d. %s\n", ttl, ipAddr.String())
+
+		if ipAddr.String() == host {
+			break
+		}
+
+		ttl++
+
+		if ttl > 30 {
+			fmt.Println("Max hops reached. Exiting.")
+			break
+		}
+	}
 }
