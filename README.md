@@ -5,7 +5,7 @@
 </p>
 
 ## IMPORTANT NOTICE
-Please be aware that if you are operating on a Darwin system with arch=amd64 or Linux with arch=arm, it is essential to either build the software from source or install it using Docker.
+I want to inform you that we're transitioning the project to a full Docker setup. This move will significantly reduce our concerns, providing a more streamlined and reliable environment. Consequently, the current shell version on the main branch (4.4.2) marks the final update for this branch.
 
 <!-- TOC -->
 - [Introduction](#introduction)
