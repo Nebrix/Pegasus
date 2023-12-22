@@ -37,7 +37,7 @@ If you prefer to build the Docker image locally, execute the following commands:
 
 `docker run -it pegasus`
 
-### Docker hub install (recommend for arm)
+### Docker hub install (Recommend)
 For a more straightforward installation, you can pull the Docker image from Docker Hub:
 
 `docker pull nebrix/pegasus:4.5.2`
