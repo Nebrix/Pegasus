@@ -70,3 +70,7 @@ func GetIPInfo(arguments []string) {
 func ShowSnifferPackets(arguments []string) {
 	sniffing.PacketSniffer(arguments[0])
 }
+
+func PhoneDNS() {
+	osint.PhoneDNS()
+}

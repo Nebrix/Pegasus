@@ -4,18 +4,12 @@
     <img src="images/pegasus.png" alt="pegasus logo">
 </p>
 
-## IMPORTANT NOTICE
-Please be aware that if you are operating on a Darwin system with arch=amd64 or Linux with arch=arm, it is essential to either build the software from source or install it using Docker.
-
 <!-- TOC -->
 - [Introduction](#introduction)
-- [Requirements](#requirements)
-- [Usage](#usage)
 - [Prompt Styles](#prompt-styles)
 - [Docker Installation](#docker-installation)
     - [Local Install](#local-install)
     - [Docker Hub Install](#docker-hub-install)
-- [Binary Install](#install-the-binary-recommend)
 - [Contribution](#contribution)
 - [License](#license)
 - [Disclaimer](#disclaimer)
@@ -26,47 +20,6 @@ Please be aware that if you are operating on a Darwin system with arch=amd64 or 
 
 Pegasus is a powerful hacking shell designed for Unix-based operating systems. It provides various tools and functionalities that can be used for security testing and ethical hacking purposes. This tool is intended for educational and responsible use only. Please use it responsibly and with proper authorization.
 
-## Requirements
-<details>
-<summary>Linux</summary>
-
-<code>bash install/install-pcap</code> 
-
-</details>
-
-<details>
-<summary>Windows</summary>
-
-<code>Install [npcap](https://npcap.com/)</code>
-
-</details>
-
-## Usage
-
-### Note
-If you install the binary for any OS you will need to make the file a sudo binary
-- Linux
-
-    `sudo chown root:root /path/to/your/executable`
-
-    `sudo chmod u+s /path/to/your/executable`
-
-- Mac
-
-
-    `sudo visudo`
-
-    `yourusername ALL=(ALL) NOPASSWD: /path/to/your/executable`
-
-- Windows
-
-    `Run as Administrator`
-
-Once Pegasus is successfully installed, you can run it by executing the `go run main.go` command in your terminal:
-
-![Pegasus Terminal](images/recent.png)
-
-If you want a new style prompt run `./pegasus -style=<prompt>`
 ## Prompt styles
 
 - windows
@@ -92,10 +45,6 @@ For a more straightforward installation, you can pull the Docker image from Dock
 `docker run -it docker.io/nebrix/pegasus:4.4.2`
 
 Using the Docker Hub image is the recommended and easier approach for most users.
-
-## Install the binary (recommend)
-
-Download the binary [pegasus](https://github.com/Nebrix/Pegasus/releases)
 
 ## Todo
 

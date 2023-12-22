@@ -206,6 +206,8 @@ func (osintShell *OSINTShell) start() {
 			cmd.GetIPInfo(arguments)
 		case "webheader":
 			cmd.Webheader(arguments)
+		case "phonedns":
+			cmd.PhoneDNS()
 		case "help", "man":
 			helper.OsintHelp()
 		default:
