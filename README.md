@@ -40,9 +40,9 @@ If you prefer to build the Docker image locally, execute the following commands:
 ### Docker hub install (Recommend)
 For a more straightforward installation, you can pull the Docker image from Docker Hub:
 
-`docker pull nebrix/pegasus:4.5.2`
+`docker pull nebrix/pegasus:latest`
 
-`docker run -it docker.io/nebrix/pegasus:4.5.2`
+`docker run -it docker.io/nebrix/pegasus:latest`
 
 Using the Docker Hub image is the recommended and easier approach for most users.
 
