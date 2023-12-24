@@ -66,8 +66,6 @@ Using the Docker Hub image is the recommended and easier approach for most users
 - [X] Shell Prompt Styles - [Description: Customize the style of the shell prompt]
 - [ ] Custom Prompt Styles - [Description: Create custom shell prompts]
 
-- [X] Install Script - [Description: Installer for libpcap (Unix only)]
-
 ## Contribution
 
 If you find any bugs or want to contribute to Pegasus, please feel free to open an issue or submit a pull request on the GitHub repository. We welcome your feedback and suggestions to make this tool even better.

@@ -139,6 +139,8 @@ func (s *Shell) commandLine() {
 		switch command {
 		case "exit":
 			os.Exit(0)
+		case "version":
+			fmt.Printf("%v\n", helper.GetVersion())
 		case "cls", "clear", "Clear-Host":
 			clearScreen()
 		case "cd", "Set-Location":
@@ -190,6 +192,8 @@ func (osintShell *OSINTShell) start() {
 		switch command {
 		case "exit":
 			return
+		case "version":
+			fmt.Printf("%v\n", helper.GetVersion())
 		case "cls", "clear", "Clear-Host":
 			clearScreen()
 		case "cd", "Set-Location":

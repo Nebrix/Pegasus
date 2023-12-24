@@ -15,7 +15,7 @@ func getUsername() string {
 		username = os.Getenv("USERNAME")
 	}
 	if username == "" {
-		username = "Unknown"
+		username = "Docker"
 	}
 	return username
 }
