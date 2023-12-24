@@ -14,7 +14,6 @@ function DockerGlobal {
     docker run -it --privileged nebrix/pegasus:latest
 }
 
-# Main script logic
 if ($choice -eq "local") {
     Local
 }
